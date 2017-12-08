@@ -13,10 +13,11 @@ import java.util.HashSet;
  */
 public class Person {
     
-    protected int id;
+    protected Integer id;
     protected String firstName;
     protected String lastName;
     protected int age;
+    protected String Gender;
     protected String phoneNumber;
     private HashSet<Course> courses;
     
@@ -32,11 +33,11 @@ public class Person {
         return courses;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -95,6 +96,20 @@ public class Person {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the Gender
+     */
+    public String getGender() {
+        return Gender;
+    }
+
+    /**
+     * @param Gender the Gender to set
+     */
+    public void setGender(String Gender) {
+        this.Gender = Gender;
     }
     
     

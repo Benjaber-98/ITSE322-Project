@@ -24,7 +24,7 @@ public class DbConnection {
             return connection;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            viewMessage("Couldn't connect to database");
+            Message.viewMessage("Couldn't connect to database");
             return connection;
         }
     }
@@ -33,10 +33,4 @@ public class DbConnection {
         connection.close();
     }
     
-    public static void viewMessage(String m) {
-        JOptionPane.showMessageDialog(null, 
-                        m, 
-                        "Warning", 
-                        JOptionPane.WARNING_MESSAGE);
-    }
 }

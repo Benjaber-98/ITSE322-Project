@@ -175,10 +175,10 @@ public class LoginPage extends javax.swing.JFrame {
                 setVisible(false);
 
             } else {
-                DbConnection.viewMessage("Please check your username and passwodrd");
+                Message.viewMessage("Please check your username and passwodrd");
             }
         } catch (SQLException ex) {
-            DbConnection.viewMessage(ex.toString());
+            Message.viewMessage(ex.toString());
         } catch (NoSuchAlgorithmException ex) {
             System.err.println(ex.toString());
         } finally {
@@ -189,7 +189,7 @@ public class LoginPage extends javax.swing.JFrame {
                 connection.close();
 
             } catch (SQLException ex) {
-                DbConnection.viewMessage(ex.toString());
+                Message.viewMessage(ex.toString());
 
             }
         }
