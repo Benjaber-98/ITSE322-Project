@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package itse322.project.Model;
+package itse322.project.Models;
 
 import java.util.HashSet;
 
@@ -11,9 +11,10 @@ import java.util.HashSet;
  *
  * @author Mahmoud
  */
-public class Student extends Person {
+public class Teacher extends Person {
     
-    public Student() {
+    public Teacher(){
         super();
     }
+    
 }

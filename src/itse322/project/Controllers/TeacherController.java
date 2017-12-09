@@ -6,9 +6,9 @@
 package itse322.project.Controllers;
 
 import itse322.project.DbConnection;
-import itse322.project.Model.Course;
-import itse322.project.Model.Student;
-import itse322.project.Model.Teacher;
+import itse322.project.Models.Course;
+import itse322.project.Models.Student;
+import itse322.project.Models.Teacher;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -7,8 +7,8 @@ package itse322.project.Controllers;
 
 import itse322.project.DbConnection;
 import itse322.project.Message;
-import itse322.project.Model.Course;
-import itse322.project.Model.Student;
+import itse322.project.Models.Course;
+import itse322.project.Models.Student;
 import java.sql.*;
 import java.util.HashSet;
 
@@ -25,7 +25,7 @@ public class StudentController {
         try {
             c = DbConnection.dbConnect();
             s = c.createStatement();
-            String query = "SELECT * FROM Students;";
+            String query = "SELECT * FROM Students ORDER BY sid;";
             rs = s.executeQuery(query);
             HashSet<Student> students = new HashSet<>();
             while(rs.next()) {
@@ -115,21 +115,19 @@ public class StudentController {
         ResultSet rs = null;
         try {
             c = DbConnection.dbConnect();
-            String query = "INSERT INTO students(sid"
-                    + ", first_name"
+            String query = "INSERT INTO students(first_name"
                     + ", last_name"
                     + ",age"
                     + ", gender"
                     + ", phone_number) VALUES ("
-                    + "?, ?, ?, ?, ?, ?);" ;
+                    + "?, ?, ?, ?, ?);" ;
             
             s = c.prepareStatement(query);
-            s.setInt(1, student.getId());
-            s.setString(2, student.getFirstName());
-            s.setString(3, student.getLastName());
-            s.setInt(4, student.getAge());
-            s.setString(5, student.getGender());
-            s.setString(6, student.getPhoneNumber());
+            s.setString(1, student.getFirstName());
+            s.setString(2, student.getLastName());
+            s.setInt(3, student.getAge());
+            s.setString(4, student.getGender());
+            s.setString(5, student.getPhoneNumber());
             
             s.executeUpdate();
             
@@ -153,10 +151,9 @@ public class StudentController {
     public static void updateStudent(Student student) {
         Connection c = null;
         PreparedStatement s = null;
-        ResultSet rs = null;
         try {
             c = DbConnection.dbConnect();
-            String query = "UPDATE students SET sid = ?,"
+            String query = "UPDATE students SET "
                     + "first_name = ?,"
                     + "last_name = ?,"
                     + "age = ?,"
@@ -165,19 +162,43 @@ public class StudentController {
                     + " WHERE sid = ?;" ;
             
             s = c.prepareStatement(query);
-            s.setInt(1, student.getId());
-            s.setString(2, student.getFirstName());
-            s.setString(3, student.getLastName());
-            s.setInt(4, student.getAge());
-            s.setString(5, student.getGender());
-            s.setString(6, student.getPhoneNumber());
-            s.setInt(7, student.getId());
+            s.setString(1, student.getFirstName());
+            s.setString(2, student.getLastName());
+            s.setInt(3, student.getAge());
+            s.setString(4, student.getGender());
+            s.setString(5, student.getPhoneNumber());
+            s.setInt(6, student.getId());
             
             s.executeUpdate();
             
         } catch (SQLException ex) {
-            //Message.viewMessage(ex.toString());
-            System.out.println(ex);
+            Message.viewMessage(ex.toString());
+        } finally {
+            try {
+                s.close();
+                c.close();
+            } catch(SQLException ex) {
+                Message.viewMessage(ex.toString());
+            } 
+            
+        }
+    }
+    
+    
+    public static void deleteStudent(int id) {
+        Connection c = null;
+        PreparedStatement s = null;
+        try {
+            c = DbConnection.dbConnect();
+            String query = "DELETE FROM students WHERE sid = ?";
+            
+            s = c.prepareStatement(query);
+            s.setInt(1, id);
+            
+            s.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Message.viewMessage(ex.toString());
         } finally {
             try {
                 s.close();

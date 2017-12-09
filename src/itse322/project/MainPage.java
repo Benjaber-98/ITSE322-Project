@@ -39,6 +39,7 @@ public class MainPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(61, 68, 72));
+        setResizable(false);
 
         teacherBtn.setBackground(new java.awt.Color(255, 255, 255));
         teacherBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\images\\teacher.jpg")); // NOI18N
