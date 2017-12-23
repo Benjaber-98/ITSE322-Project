@@ -12,10 +12,17 @@ import javax.swing.JOptionPane;
  * @author Mahmoud
  */
 public class Message {
-    public static void viewMessage(String m) {
+    public static void showWarningMessage(String m) {
         JOptionPane.showMessageDialog(null, 
                         m, 
                         "Warning", 
                         JOptionPane.WARNING_MESSAGE);
+    }
+    
+    public static void showDoneMessage(String m) {
+        JOptionPane.showMessageDialog(null, 
+                        m, 
+                        "Done", 
+                        JOptionPane.PLAIN_MESSAGE);
     }
 }

@@ -1,0 +1,41 @@
+Login Page => Done
+Main Page => Done
+
+------Student Area-----
+done --
+	Create Interface
+	create table
+	add student => auto add to table
+	update student => auto update table
+	delete student => auto delete from table
+	export students as PDF => designed table in pdf file
+	create view details interface :
+		add course to student
+		view time for each chosen course
+		delete registration from student
+	
+
+to do --
+	nothing for now
+
+--------------------
+
+-------------------Courses Area --------
+done --
+
+
+
+to do --
+	Create Interface
+	create table
+	add course => use date and time
+	delete course
+	update course
+	export as PDF
+	
+	create view details interface :
+		
+	
+
+
+----------------------------------------

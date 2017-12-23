@@ -20,13 +20,12 @@ public class DbConnection {
     public static Connection dbConnect(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/training_center", "root", "");
-            return connection;
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/training_center?useSSL=false", "root", "");
 
         } catch (ClassNotFoundException | SQLException ex) {
-            Message.viewMessage("Couldn't connect to database");
-            return connection;
+            Message.showWarningMessage("Couldn't connect to database");
         }
+        return connection;
     }
     
     public static void connection_close() throws SQLException{

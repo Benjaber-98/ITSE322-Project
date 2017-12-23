@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package itse322.project;
+package itse322.project.Frames;
 
+import itse322.project.DbConnection;
+import itse322.project.Message;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -66,7 +68,6 @@ public class LoginPage extends javax.swing.JFrame {
         setTitle("Training Center Management System");
         setForeground(java.awt.Color.white);
         setLocation(new java.awt.Point(0, 0));
-        setMaximumSize(new java.awt.Dimension(400, 300));
         setMinimumSize(new java.awt.Dimension(400, 300));
         setResizable(false);
 
@@ -175,10 +176,10 @@ public class LoginPage extends javax.swing.JFrame {
                 setVisible(false);
 
             } else {
-                Message.viewMessage("Please check your username and passwodrd");
+                Message.showWarningMessage("Please check your username and passwodrd");
             }
         } catch (SQLException ex) {
-            Message.viewMessage(ex.toString());
+            Message.showWarningMessage(ex.toString());
         } catch (NoSuchAlgorithmException ex) {
             System.err.println(ex.toString());
         } finally {
@@ -189,7 +190,7 @@ public class LoginPage extends javax.swing.JFrame {
                 connection.close();
 
             } catch (SQLException ex) {
-                Message.viewMessage(ex.toString());
+                Message.showWarningMessage(ex.toString());
 
             }
         }

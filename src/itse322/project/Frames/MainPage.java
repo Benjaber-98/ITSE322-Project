@@ -1,4 +1,9 @@
-package itse322.project;
+package itse322.project.Frames;
+
+import itse322.project.Frames.teachers.Teachers;
+import itse322.project.Frames.courses.Courses;
+import itse322.project.Frames.students.Students;
+import javax.swing.JFrame;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,7 +38,7 @@ public class MainPage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         studentBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        subjectBtn = new javax.swing.JButton();
+        coursesBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
 
@@ -69,17 +74,17 @@ public class MainPage extends javax.swing.JFrame {
 
         jLabel3.setText("Manage Students");
 
-        subjectBtn.setBackground(new java.awt.Color(255, 255, 255));
-        subjectBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\images\\book.jpg")); // NOI18N
-        subjectBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        subjectBtn.setFocusable(false);
-        subjectBtn.addActionListener(new java.awt.event.ActionListener() {
+        coursesBtn.setBackground(new java.awt.Color(255, 255, 255));
+        coursesBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\images\\book.jpg")); // NOI18N
+        coursesBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        coursesBtn.setFocusable(false);
+        coursesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                subjectBtnActionPerformed(evt);
+                coursesBtnActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Manage Subjects");
+        jLabel4.setText("Manage Courses");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,7 +116,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(studentBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(subjectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(coursesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(jLabel1))
@@ -134,7 +139,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(teacherBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(studentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(subjectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(coursesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -151,9 +156,9 @@ public class MainPage extends javax.swing.JFrame {
         new Students().setVisible(true);
     }//GEN-LAST:event_studentBtnActionPerformed
 
-    private void subjectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subjectBtnActionPerformed
-        new Subjects().setVisible(true);
-    }//GEN-LAST:event_subjectBtnActionPerformed
+    private void coursesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coursesBtnActionPerformed
+        new Courses().setVisible(true);
+    }//GEN-LAST:event_coursesBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,13 +196,13 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton coursesBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton studentBtn;
-    private javax.swing.JButton subjectBtn;
     private javax.swing.JButton teacherBtn;
     // End of variables declaration//GEN-END:variables
 }

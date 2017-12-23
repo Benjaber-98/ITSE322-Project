@@ -5,6 +5,9 @@
  */
 package itse322.project;
 
+import itse322.project.Frames.MainPage;
+import itse322.project.Frames.LoginPage;
+
 /**
  *
  * @author Mahmoud

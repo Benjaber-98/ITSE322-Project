@@ -79,5 +79,9 @@ public class Course {
         return students;
     }
     
+    @Override
+    public String toString(){
+        return this.getStartDate() + " => " + this.getEndDate();
+    }
             
 }
