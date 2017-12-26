@@ -10,6 +10,9 @@ import itse322.project.Controllers.StudentController;
 import itse322.project.Message;
 import itse322.project.Models.Course;
 import itse322.project.Models.Student;
+import java.awt.Color;
+import static java.awt.Component.LEFT_ALIGNMENT;
+import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -17,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -53,9 +57,9 @@ public class StudentDetails extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentDetailsTable = new javax.swing.JTable();
-        studentName = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         coursesComboBox = new javax.swing.JComboBox<>();
         dateComboBox = new javax.swing.JComboBox<>();
@@ -63,9 +67,12 @@ public class StudentDetails extends javax.swing.JFrame {
         addBtn = new javax.swing.JButton();
         deleteRegestrationBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        studentName = new javax.swing.JLabel();
 
         setTitle("Student details");
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         studentDetailsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,9 +102,6 @@ public class StudentDetails extends javax.swing.JFrame {
             studentDetailsTable.getColumnModel().getColumn(4).setResizable(false);
             studentDetailsTable.getColumnModel().getColumn(5).setResizable(false);
         }
-
-        studentName.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        studentName.setText("Student Name here :");
 
         jLabel1.setText("Course Name");
 
@@ -133,54 +137,75 @@ public class StudentDetails extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(studentName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addComponent(coursesComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addComponent(dateComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(addBtn)))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(coursesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addBtn)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(deleteRegestrationBtn)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)))
+                .addGap(71, 71, 71)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1048, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteRegestrationBtn))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(studentName)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(coursesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(addBtn))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteRegestrationBtn)
-                    .addComponent(backBtn))
-                .addContainerGap(51, Short.MAX_VALUE))
+                        .addComponent(addBtn)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backBtn)
+                    .addComponent(deleteRegestrationBtn))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1370, -1));
+
+        jPanel2.setBackground(new java.awt.Color(25, 118, 210));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1422, 150));
+
+        studentName.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        studentName.setForeground(new java.awt.Color(255, 255, 255));
+        studentName.setText("Student Name here :");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(studentName)
+                .addContainerGap(991, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(studentName)
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -287,15 +312,22 @@ public class StudentDetails extends javax.swing.JFrame {
     }
     
     private void refreshTable() {
-        try {
-            studentDetailsTable.setModel(getTableContent());
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentDetails.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        studentDetailsTable.setModel(getTableContent());
+        studentDetailsTable.setGridColor(Color.white);
+        studentDetailsTable.setRowHeight(30);
+        studentDetailsTable.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsTable.setFont(new java.awt.Font("Dialog", 1, 14));
+        studentDetailsTable.setShowGrid(false);
+        JTableHeader header = studentDetailsTable.getTableHeader();
+        header.setBackground(new java.awt.Color(25,118,210));
+        header.setForeground(Color.white);
+        header.setAlignmentX(LEFT_ALIGNMENT);
+        header.setPreferredSize(new Dimension(jScrollPane1.getWidth(), 30));
+        
     }
     
     //return model contains all content to put in a table
-    private DefaultTableModel getTableContent() throws SQLException {
+    private DefaultTableModel getTableContent() {
         String[] columnNames = {"Course Id", "Course Name","Teacher","Hours", "Start Date", "End Date"};
 
         DefaultTableModel dtm = new DefaultTableModel(columnNames, 0){
@@ -333,6 +365,8 @@ public class StudentDetails extends javax.swing.JFrame {
     private javax.swing.JButton deleteRegestrationBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable studentDetailsTable;
     private javax.swing.JLabel studentName;

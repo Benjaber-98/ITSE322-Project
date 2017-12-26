@@ -57,7 +57,7 @@ public class StudentController {
         return null;
     }
     
-    public Student getStudentById(Integer id) throws SQLException {
+    public Student getStudentById(Integer id)  {
         Connection c = null; 
         PreparedStatement s = null;
         ResultSet rs = null;
@@ -93,7 +93,7 @@ public class StudentController {
         
     }
     
-    public Student getStudentByIdWithCourses(Integer id) throws SQLException {
+    public Student getStudentByIdWithCourses(Integer id) {
         Connection c = DbConnection.dbConnect(); 
         PreparedStatement s = null;
         ResultSet rs = null;
