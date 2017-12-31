@@ -23,20 +23,23 @@ to do --
 -------------------Courses Area --------
 done --
 
-
+	add course => use date and time
+	Create Interface :
+		table contains info about courses
+		panel contains two tabs
+		tab1 - (id, name, hours, start_date, end_date)
+		
+		
+	create table
+	update course
 
 to do --
-	Create Interface :
-		table contains info about course
-		panel contains (id, name, hours, start_date, end_date)
-	create table
-	add course => use date and time
-	delete course
-	update course
-	export as PDF
+	tab2 - List of registered student in course
 	
-	create view details interface :
-		
+	delete course
+	
+	export as PDF
+			
 	
 
 

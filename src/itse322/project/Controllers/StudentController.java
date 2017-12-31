@@ -12,12 +12,15 @@ import itse322.project.Models.Student;
 import itse322.project.Models.Teacher;
 import java.sql.*;
 import java.util.HashSet;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Mahmoud
  */
 public class StudentController {
+    
+    Logger log = Logger.getLogger(Course.class);
     
     public HashSet<Student> getAllStudents() {
         Connection c = null;
@@ -43,13 +46,19 @@ public class StudentController {
             return students;
         } catch (SQLException ex) {
             Message.showWarningMessage(ex.toString());
+            log.error("\n--------Error Message------\n",ex);
         } finally {
             try {
-                rs.close();
-                s.close();
-                c.close();
+                if(rs != null)
+                    rs.close();
+                if(s != null)
+                    s.close();
+                if(c != null)
+                    c.close();
             } catch(SQLException ex) {
                 Message.showWarningMessage(ex.toString());
+                log.error("\n--------Error Message------\n",ex);
+                
             }
             
         }
@@ -78,13 +87,18 @@ public class StudentController {
             
         } catch (SQLException ex) {
             Message.showWarningMessage(ex.toString());
+            log.error("\n--------Error Message------\n",ex);
         } finally {
             try {
-                rs.close();
-                s.close();
-                c.close();
+                if(rs != null)
+                    rs.close();
+                if(s != null)
+                    s.close();
+                if(c != null)
+                    c.close();
             } catch(SQLException ex) {
                 Message.showWarningMessage(ex.toString());
+                log.error("\n--------Error Message------\n",ex);
             }
             
         }
@@ -125,14 +139,19 @@ public class StudentController {
             }
         } catch(SQLException ex) {
             Message.showWarningMessage(ex+"");
+            log.error("\n--------Error Message------\n",ex);
         } finally {
        
             try {
-                rs.close();
-                s.close();
-                c.close();
+                if(rs != null)
+                    rs.close();
+                if(s != null)
+                    s.close();
+                if(c != null)
+                    c.close();
             } catch(SQLException ex) {
                 Message.showWarningMessage(ex.toString());
+                log.error("\n--------Error Message------\n",ex);
             }
         }
         
@@ -169,10 +188,13 @@ public class StudentController {
             System.out.println(ex);
         } finally {
             try {
-                s.close();
-                c.close();
+                if(s != null)
+                    s.close();
+                if(c != null)
+                    c.close();
             } catch(SQLException ex) {
                 Message.showWarningMessage(ex.toString());
+                log.error("\n--------Error Message------\n",ex);
             } 
             
         }
@@ -203,12 +225,16 @@ public class StudentController {
             
         } catch (SQLException ex) {
             Message.showWarningMessage(ex.toString());
+            log.error("\n--------Error Message------\n",ex);
         } finally {
             try {
-                s.close();
+                if(s != null)
+                    s.close();
+                if(c != null)
                 c.close();
             } catch(SQLException ex) {
                 Message.showWarningMessage(ex.toString());
+                log.error("\n--------Error Message------\n",ex);
             } 
             
         }
@@ -229,12 +255,16 @@ public class StudentController {
             
         } catch (SQLException ex) {
             Message.showWarningMessage(ex.toString());
+            log.error("\n--------Error Message------\n",ex);
         } finally {
             try {
-                s.close();
-                c.close();
+                if(s != null)
+                    s.close();
+                if(c != null)
+                    c.close();
             } catch(SQLException ex) {
                 Message.showWarningMessage(ex.toString());
+                log.error("\n--------Error Message------\n",ex);
             } 
             
         }
@@ -261,10 +291,13 @@ public class StudentController {
             System.out.println(ex);
         } finally {
             try {
-                s.close();
-                c.close();
+                if(s != null)
+                    s.close();
+                if(c != null)
+                    c.close();
             } catch(SQLException ex) {
                 Message.showWarningMessage(ex.toString());
+                log.error("\n--------Error Message------\n",ex);
             } 
             
         }
@@ -287,8 +320,10 @@ public class StudentController {
             Message.showWarningMessage(ex.toString());
         } finally {
             try {
-                s.close();
-                c.close();
+                if(s != null)
+                    s.close();
+                if(c != null)
+                    c.close();
             } catch(SQLException ex) {
                 Message.showWarningMessage(ex.toString());
             } 

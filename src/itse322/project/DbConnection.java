@@ -9,12 +9,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Mahmoud
  */
 public class DbConnection {
+    private static Logger log = Logger.getLogger(DbConnection.class);
     private static Connection connection = null;
     
     public static Connection dbConnect(){
@@ -24,12 +26,10 @@ public class DbConnection {
 
         } catch (ClassNotFoundException | SQLException ex) {
             Message.showWarningMessage("Couldn't connect to database");
+            log.error("\n--------Couldn't Connect To Database Error------\n",ex);
         }
         return connection;
     }
     
-    public static void connection_close() throws SQLException{
-        connection.close();
-    }
     
 }

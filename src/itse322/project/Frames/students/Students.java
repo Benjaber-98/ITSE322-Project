@@ -21,7 +21,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,12 +36,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.apache.log4j.Logger;
 /**
  *
  * @author Mahmoud
  */
 public class Students extends javax.swing.JFrame {
     
+    Logger log = Logger.getLogger(Students.class);
     StudentController studentController = new StudentController();
 
     /**
@@ -52,6 +53,7 @@ public class Students extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         refreshTable();
+        idLabel.setVisible(false);
         ArrayList<String> ages = new ArrayList<>();
         for(Integer i = 10; i <= 40; i++) {
             ages.add(i.toString());
@@ -86,7 +88,6 @@ public class Students extends javax.swing.JFrame {
         lastNameTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         ageComboBox = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         phoneNumberTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -193,9 +194,6 @@ public class Students extends javax.swing.JFrame {
 
         ageComboBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setText("ID :");
-
         phoneNumberTextField.setBackground(new java.awt.Color(255, 255, 255));
         phoneNumberTextField.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         phoneNumberTextField.setBorder(null);
@@ -272,26 +270,24 @@ public class Students extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel4))
+                                    .addComponent(jLabel1))
                                 .addGap(39, 39, 39)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idLabel)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(firstNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jSeparator2)
-                                        .addComponent(ageComboBox, 0, 193, Short.MAX_VALUE)
-                                        .addComponent(lastNameTextField, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(firstNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator2)
+                                    .addComponent(ageComboBox, 0, 193, Short.MAX_VALUE)
+                                    .addComponent(lastNameTextField, javax.swing.GroupLayout.Alignment.LEADING))))
                         .addContainerGap(22, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(idLabel)
+                .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(idLabel))
+                .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -304,7 +300,7 @@ public class Students extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(ageComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -319,11 +315,11 @@ public class Students extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(saveStudentBtn))
-                .addGap(20, 20, 20))
+                .addGap(77, 77, 77))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -357,7 +353,7 @@ public class Students extends javax.swing.JFrame {
                 .addGap(765, 765, 765))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -377,6 +373,7 @@ public class Students extends javax.swing.JFrame {
     }
 
     private void resetFields() {
+        int row = studentsTable.getSelectedRow();
         idLabel.setText("Random Id");
         firstNameTextField.setText("");
         lastNameTextField.setText("" );
@@ -384,35 +381,29 @@ public class Students extends javax.swing.JFrame {
         maleGender.setSelected(true);
         phoneNumberTextField.setText( "" );
         saveStudentBtn.setText("Add");
-        //studentsTable.getSelectionModel().clearSelection();
+        if(row != -1)
+            studentsTable.removeRowSelectionInterval(row, row);
     }
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        int row = studentsTable.getSelectedRow();
+        int selectedRow = studentsTable.getSelectedRow();
         
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        if(row != -1) {
+        if(selectedRow != -1) {
             int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to delete this student ?","Warning", dialogButton);
             if(dialogResult == JOptionPane.NO_OPTION){
               return;
             }
         }
         
-        int count = studentsTable.getRowCount();
-        int nextRow = row+1;
-        if(nextRow == studentsTable.getRowCount()) {
-            nextRow = row -1;
-        }
-        if(row != -1) {
-            int sid = Integer.parseInt( studentsTable.getValueAt(row, 0).toString() );
+        if(selectedRow != -1) {
+            int sid = Integer.parseInt(studentsTable.getValueAt(selectedRow, 0).toString() );
             studentController.deleteStudent(sid);
-            if(count == 1){
-                refreshTable();
-            } else {
-                DefaultTableModel model = (DefaultTableModel)studentsTable.getModel();
-                studentsTable.setRowSelectionInterval( nextRow, nextRow );
-                model.removeRow(row);
-            }
+            int row = studentsTable.convertRowIndexToModel(selectedRow);
+            DefaultTableModel model = (DefaultTableModel)studentsTable.getModel();
+//            studentsTable.setRowSelectionInterval( nextRow, nextRow );
+            model.removeRow(row);
+            resetFields();
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
@@ -493,20 +484,8 @@ public class Students extends javax.swing.JFrame {
                 }
             }
             doc.add(pdfTable);
-            
-            //Current Milliseconds
-            long currentMilliSeconds = System.currentTimeMillis();
-
-            //The Format Of Timestamp
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); 
-
-            //Creating a new Date from milliseconds
-            Date currentDate = new Date(currentMilliSeconds);
-
-            //Getting the timestamp in variable
-            String time = dateFormat.format( currentDate );
-            
-            doc.add(new Paragraph("Created At : "+time, 
+                        
+            doc.add(new Paragraph("Created At : "+getCurrentTime(), 
                     FontFactory.getFont(FontFactory.TIMES_BOLD, 12, BaseColor.BLACK) 
             ));
             
@@ -514,14 +493,33 @@ public class Students extends javax.swing.JFrame {
             Message.showDoneMessage("Report Created Successfully");
         } catch (DocumentException | FileNotFoundException ex) {
             Message.showWarningMessage(ex.toString());
+            log.error("\n--------Error Message------\n",ex);
         }
     }//GEN-LAST:event_exportBtnActionPerformed
 
+    private String getCurrentTime() {
+        //Current Milliseconds
+        long currentMilliSeconds = System.currentTimeMillis();
+
+        //The Format Of Timestamp
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); 
+
+        //Creating a new Date from milliseconds
+        Date currentDate = new Date(currentMilliSeconds);
+
+        //Getting the timestamp in variable
+        String time = dateFormat.format( currentDate );
+        return time;
+    }
+    
     private void getStudentDetails() {
         studentsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int row = studentsTable.getSelectedRow();
+                if(row == -1) 
+                    return;
+                
                 idLabel.setText( studentsTable.getValueAt(row, 0).toString() );
                 firstNameTextField.setText( studentsTable.getValueAt(row, 1).toString() );
                 lastNameTextField.setText( studentsTable.getValueAt(row, 2).toString() );
@@ -610,7 +608,7 @@ public class Students extends javax.swing.JFrame {
         sorter.setSortKeys(sortKeys);
         sorter.sort();
         
-        //when click on row in table
+        //when click on selectedRow in table
         getStudentDetails();
     }
     
@@ -668,7 +666,6 @@ public class Students extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

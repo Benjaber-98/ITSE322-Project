@@ -7,7 +7,6 @@ package itse322.project.Controllers;
 
 import itse322.project.DbConnection;
 import itse322.project.Models.Course;
-import itse322.project.Models.Student;
 import itse322.project.Models.Teacher;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,25 +23,42 @@ import java.util.HashSet;
  */
 public class TeacherController {
     
-    public static HashSet<Teacher> getAllTeachers() throws SQLException{
-        Connection c = DbConnection.dbConnect();
-        Statement s = c.createStatement();
-        String query = "SELECT * FROM teachers;";
-        ResultSet rs = s.executeQuery(query);
+    public HashSet<Teacher> getAllTeachers(){
+        Connection c = null;
+        Statement s = null;
+        ResultSet rs = null;
         HashSet<Teacher> teachers = new HashSet<>();
-        while(rs.next()) {
-            Teacher teacher = new Teacher();
-            teacher.setId(rs.getInt("tid"));
-            teacher.setFirstName(rs.getString("first_name"));
-            teacher.setLastName(rs.getString("last_name"));
-            teacher.setAge(rs.getInt("age"));
-            teacher.setPhoneNumber(rs.getString("phone_number"));
-            teachers.add(teacher);
+        try {
+            c = DbConnection.dbConnect();
+            s = c.createStatement();
+            String query = "SELECT * FROM teachers;";
+            rs = s.executeQuery(query);
+            
+            while(rs.next()) {
+                Teacher teacher = new Teacher();
+                teacher.setId(rs.getInt("tid"));
+                teacher.setFirstName(rs.getString("first_name"));
+                teacher.setLastName(rs.getString("last_name"));
+                teacher.setAge(rs.getInt("age"));
+                teacher.setPhoneNumber(rs.getString("phone_number"));
+                teachers.add(teacher);
+            }
+        } catch (SQLException ex) {
+            
+        } finally {
+            try {
+                if(rs != null)
+                    rs.close();
+                if(s != null)
+                    s.close();
+                if(c != null)
+                    c.close();
+            } catch (SQLException ex) {
+                
+            }
         }
         
-        rs.close();
-        s.close();
-        c.close();
+        
         
         return teachers;
     }

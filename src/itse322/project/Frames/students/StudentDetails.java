@@ -13,14 +13,12 @@ import itse322.project.Models.Student;
 import java.awt.Color;
 import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.Dimension;
-import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -31,6 +29,7 @@ public class StudentDetails extends javax.swing.JFrame {
     StudentController studentController = new StudentController();
     Student student = null;
     CoursesController coursesController = new CoursesController();
+    Logger log = Logger.getLogger(StudentDetails.class);
 
     /**
      * Creates new form StudentDetails
@@ -65,10 +64,10 @@ public class StudentDetails extends javax.swing.JFrame {
         dateComboBox = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
-        deleteRegestrationBtn = new javax.swing.JButton();
-        backBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         studentName = new javax.swing.JLabel();
+        deleteRegestrationBtn = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
 
         setTitle("Student details");
         setResizable(false);
@@ -121,22 +120,6 @@ public class StudentDetails extends javax.swing.JFrame {
             }
         });
 
-        deleteRegestrationBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\Icons\\delete.png")); // NOI18N
-        deleteRegestrationBtn.setText("Detele Regestration");
-        deleteRegestrationBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteRegestrationBtnActionPerformed(evt);
-            }
-        });
-
-        backBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\Icons\\back.png")); // NOI18N
-        backBtn.setText("Back");
-        backBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -148,12 +131,9 @@ public class StudentDetails extends javax.swing.JFrame {
                     .addComponent(coursesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addBtn)
-                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addBtn))
                 .addGap(71, 71, 71)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1048, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteRegestrationBtn))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1048, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -161,7 +141,6 @@ public class StudentDetails extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(12, 12, 12)
@@ -171,12 +150,10 @@ public class StudentDetails extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(addBtn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(backBtn)
-                    .addComponent(deleteRegestrationBtn))
-                .addContainerGap(12, Short.MAX_VALUE))
+                        .addComponent(addBtn)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1370, -1));
@@ -207,6 +184,24 @@ public class StudentDetails extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 150));
 
+        deleteRegestrationBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\Icons\\delete.png")); // NOI18N
+        deleteRegestrationBtn.setText("Detele Regestration");
+        deleteRegestrationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteRegestrationBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(deleteRegestrationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 590, -1, -1));
+
+        backBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\Icons\\back.png")); // NOI18N
+        backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 590, 132, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -227,32 +222,23 @@ public class StudentDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void deleteRegestrationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRegestrationBtnActionPerformed
-        int row = studentDetailsTable.getSelectedRow();
+        int selectedRow = studentDetailsTable.getSelectedRow();
         
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        if(row != -1) {
+        if(selectedRow != -1) {
             int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to delete this regestration ?","Warning", dialogButton);
             if(dialogResult == JOptionPane.NO_OPTION){
               return;
             }
         }
-        
-        int count = studentDetailsTable.getRowCount();
-        int nextRow = row+1;
-        if(nextRow == studentDetailsTable.getRowCount()) {
-            nextRow = row -1;
-        }
-        if(row != -1) {
+       
+        if(selectedRow != -1) {
             int sid = student.getId();
-            int cid = Integer.parseInt( String.valueOf( studentDetailsTable.getValueAt(row, 0) ) );
+            int cid = Integer.parseInt(String.valueOf(studentDetailsTable.getValueAt(selectedRow, 0) ) );
+            int row = studentDetailsTable.convertRowIndexToModel(selectedRow);
             studentController.deleteRegestrationForStudent(sid, cid);
-            if(count == 1){
-                refreshTable();
-            } else {
-                DefaultTableModel model = (DefaultTableModel)studentDetailsTable.getModel();
-                studentDetailsTable.setRowSelectionInterval( nextRow, nextRow );
-                model.removeRow(row);
-            }
+            DefaultTableModel model = (DefaultTableModel)studentDetailsTable.getModel();
+            model.removeRow(row);
         }
     }//GEN-LAST:event_deleteRegestrationBtnActionPerformed
 

@@ -5,20 +5,17 @@
  */
 package itse322.project.Frames;
 
+import com.mysql.jdbc.log.Log;
 import itse322.project.DbConnection;
 import itse322.project.Message;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.xml.bind.DatatypeConverter;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -30,18 +27,13 @@ public class LoginPage extends javax.swing.JFrame {
     private static PreparedStatement prepared = null;
     private static ResultSet rs = null;
     int xx, xy;
+    private Logger log = Logger.getLogger(LoginPage.class);
 
     /**
      * Creates new form LoginPage
      */
     public LoginPage() {
         setUndecorated(true);
-//        try {
-//            BufferedImage img = ImageIO.read(new File("images/login1.jpg"));
-//            setContentPane(new JLabel(new ImageIcon(img)));
-//        } catch (Exception e) { 
-//            System.out.println(e);
-//        }
         initComponents();
     }
 
@@ -253,7 +245,6 @@ public class LoginPage extends javax.swing.JFrame {
     private void login(){
         try {
             
-            
             connection = DbConnection.dbConnect();
             String sql = "SELECT * FROM users WHERE username = ? AND password = ?;";
             String username = usernameField.getText();
@@ -268,26 +259,31 @@ public class LoginPage extends javax.swing.JFrame {
             prepared.setString(2, myHash);
             rs = prepared.executeQuery();
             if(rs.next()) {
-                new MainPage().setVisible(true);
+                log.info(username + " Logget In");
+                new MainPage(username).setVisible(true);
                 setVisible(false);
 
             } else {
                 Message.showWarningMessage("Please check your username and password");
+                log.info("Wrong Password Entered");
             }
         } catch (SQLException ex) {
             Message.showWarningMessage(ex.toString());
         } catch (NoSuchAlgorithmException ex) {
             System.err.println(ex.toString());
-        } finally {
+        }
+        finally {
 
             try {
-                rs.close();
-                prepared.close();
-                connection.close();
+                if(rs != null)
+                    rs.close();
+                if(prepared != null)
+                    prepared.close();
+                if(connection != null)
+                    connection.close();
 
             } catch (SQLException ex) {
                 Message.showWarningMessage(ex.toString());
-
             }
         }
     }
