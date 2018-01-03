@@ -1563,3 +1563,214 @@ Caused by: java.net.ConnectException: Connection refused: connect
 	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:211)
 	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:300)
 	... 52 more
+
+----------
+ 2018-01-01 13:44:27,446 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-02 20:05:14,540 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-02 20:10:01,377 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-02 20:10:07,810 - 
+--------Error Message------
+
+ 
+-------------------com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'training_center.teacher_teaches_student' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.Util.getInstance(Util.java:408)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:943)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3973)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3909)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2527)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2680)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2487)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1858)
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2079)
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2013)
+	at com.mysql.jdbc.PreparedStatement.executeLargeUpdate(PreparedStatement.java:5104)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1998)
+	at itse322.project.Controllers.CoursesController.deleteCourseTeacher(CoursesController.java:126)
+	at itse322.project.Controllers.CoursesController.updateCourse(CoursesController.java:89)
+	at itse322.project.Frames.courses.Courses.saveCourseBtnActionPerformed(Courses.java:406)
+	at itse322.project.Frames.courses.Courses.access$100(Courses.java:53)
+	at itse322.project.Frames.courses.Courses$2.actionPerformed(Courses.java:181)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:90)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+
+----------
+ 2018-01-02 20:38:57,285 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-02 20:39:47,596 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-02 20:40:01,211 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-02 20:41:04,529 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-02 21:53:45,808 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-02 21:53:56,420 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-03 19:09:02,421 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:09:12,160 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-03 19:35:37,886 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:35:48,550 - 
+--------Error Message------
+
+ 
+-------------------java.sql.SQLException: Column 't.sid' not found.
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:964)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:897)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:886)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:860)
+	at com.mysql.jdbc.ResultSetImpl.findColumn(ResultSetImpl.java:1077)
+	at com.mysql.jdbc.ResultSetImpl.getInt(ResultSetImpl.java:2567)
+	at itse322.project.Controllers.TeacherController.getTeacherById(TeacherController.java:81)
+	at itse322.project.Frames.teachers.Teachers.detailsBtnActionPerformed(Teachers.java:417)
+	at itse322.project.Frames.teachers.Teachers.access$200(Teachers.java:46)
+	at itse322.project.Frames.teachers.Teachers$3.actionPerformed(Teachers.java:157)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:90)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+
+----------
+ 2018-01-03 19:36:05,404 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:37:20,718 - Wrong Password Entered
+ 
+-------------------
+----------
+ 2018-01-03 19:37:22,674 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:38:43,386 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:41:00,650 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:42:07,998 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:45:41,139 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:49:04,562 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:52:15,724 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:53:32,411 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-03 19:53:51,999 - admin Logget Out
+ 
+-------------------

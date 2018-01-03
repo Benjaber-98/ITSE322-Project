@@ -82,6 +82,49 @@ public class CoursesController {
             
             s.executeUpdate();
             
+            /*
+            * case 1 : teacher is empty then delete registration
+            */
+            if(course.getTeacher() == null){
+                deleteCourseTeacher(course.getId());
+            } 
+            /*
+            * case 2 :  teacher is not empty
+            */
+            else {
+                /*
+                * a - the course has no teacher before then add the teacher
+                */
+                if(getTeacher(course.getId()) == null) {
+                    addTeacherToCourse(course.getTeacher().getId(), course.getId());
+                }
+                /*
+                * b - the course has a teacher then update it
+                */
+                else {
+                    updateTeacherCourse(course.getTeacher().getId(), course.getId());
+                }
+                
+            }
+            
+        } catch(SQLException ex) {
+            
+            log.error("\n--------Error Message------\n",ex);
+                
+        }
+    }
+    
+    private void deleteCourseTeacher(int cid) {
+        Connection c = null;
+        PreparedStatement s = null;
+        try {
+            c = DbConnection.dbConnect();
+            String query = "DELETE FROM teacher_teaches_course WHERE cid = ?";
+            s = c.prepareStatement(query);
+            s.setInt(1, cid);
+            
+            s.executeUpdate();
+            
         } catch(SQLException ex) {
             
             log.error("\n--------Error Message------\n",ex);
@@ -202,7 +245,7 @@ public class CoursesController {
             if(course.getTeacher() != null) {
                 rs = s.getGeneratedKeys();
                 if(rs.next()) {
-                    addTeacherToCourse(course.getTeacher(), rs.getInt(1));
+                    addTeacherToCourse(course.getTeacher().getId(), rs.getInt(1));
                 }
             }
             
@@ -225,7 +268,7 @@ public class CoursesController {
         }
     }
     
-    public void addTeacherToCourse(Teacher teacher, int cid) {
+    public void addTeacherToCourse(int tid, int cid) {
         Connection c = null;
         PreparedStatement s = null;
         try {
@@ -233,7 +276,7 @@ public class CoursesController {
             String query = "INSERT INTO teacher_teaches_course VALUES("
                     + "? , ?);";
             s = c.prepareStatement(query);
-            s.setInt(1, teacher.getId());
+            s.setInt(1, tid);
             s.setInt(2, cid);
 
             s.executeUpdate();
@@ -254,14 +297,14 @@ public class CoursesController {
         }
     }
     
-    private void updateTeacherCourse(Teacher teacher, int cid) {
+    private void updateTeacherCourse(int tid, int cid) {
         Connection c = null;
         PreparedStatement s = null;
         try {
             c = DbConnection.dbConnect();
             String query = "UPDATE teacher_teaches_course SET tid = ? WHERE cid = ?;";
             s = c.prepareStatement(query);
-            s.setInt(1, teacher.getId());
+            s.setInt(1, tid);
             s.setInt(2, cid);
 
             s.executeUpdate();

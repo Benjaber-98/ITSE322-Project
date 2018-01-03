@@ -293,7 +293,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_teacherLabelMouseClicked
 
     private void studentLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentLabelMouseClicked
-        new Students().setVisible(true);
+        new Teachers().setVisible(true);
     }//GEN-LAST:event_studentLabelMouseClicked
 
     private void courseLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_courseLabelMouseClicked
