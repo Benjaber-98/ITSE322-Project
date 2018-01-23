@@ -101,6 +101,7 @@ public class Teachers extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        backBtn2 = new javax.swing.JButton();
 
         setTitle("Manage Teachers");
         setResizable(false);
@@ -324,13 +325,23 @@ public class Teachers extends javax.swing.JFrame {
                 .addGap(77, 77, 77))
         );
 
+        backBtn2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\Icons\\back.png")); // NOI18N
+        backBtn2.setText("Back");
+        backBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtn2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -351,7 +362,8 @@ public class Teachers extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(detailsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(deleteBtn)
-                    .addComponent(exportBtn))
+                    .addComponent(exportBtn)
+                    .addComponent(backBtn2))
                 .addGap(765, 765, 765))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
@@ -379,7 +391,7 @@ public class Teachers extends javax.swing.JFrame {
         idLabel.setText("Random Id");
         firstNameTextField.setText("");
         lastNameTextField.setText("" );
-        ageComboBox.setSelectedItem("10");
+        ageComboBox.setSelectedItem("18");
         maleGender.setSelected(true);
         phoneNumberTextField.setText( "" );
         saveTeacherBtn.setText("Add");
@@ -447,7 +459,7 @@ public class Teachers extends javax.swing.JFrame {
         } else {
             teacher.setId( Integer.parseInt( idLabel.getText() ) );
             teacherController.updateTeacher(teacher);
-            updateStudentRow(teacher);
+            updateTeacherRow(teacher);
         }
 
     }//GEN-LAST:event_saveTeacherBtnActionPerformed
@@ -487,6 +499,8 @@ public class Teachers extends javax.swing.JFrame {
             }
             doc.add(pdfTable);
                         
+            doc.add(new Paragraph("Number Of Teachers : " + teachersTable.getRowCount()));
+            
             doc.add(new Paragraph("Created At : "+getCurrentTime(), 
                     FontFactory.getFont(FontFactory.TIMES_BOLD, 12, BaseColor.BLACK) 
             ));
@@ -498,6 +512,10 @@ public class Teachers extends javax.swing.JFrame {
             log.error("\n--------Error Message------\n",ex);
         }
     }//GEN-LAST:event_exportBtnActionPerformed
+
+    private void backBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_backBtn2ActionPerformed
 
     private String getCurrentTime() {
         //Current Milliseconds
@@ -647,17 +665,19 @@ public class Teachers extends javax.swing.JFrame {
     
     
     
-    private void updateStudentRow(Teacher teacher) {
-        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getFirstName() , teachersTable.getSelectedRow(), 1);
-        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getLastName(), teachersTable.getSelectedRow(), 2);
-        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getAge(), teachersTable.getSelectedRow(), 3);
+    private void updateTeacherRow(Teacher teacher) {
+        int row = teachersTable.convertRowIndexToModel(teachersTable.getSelectedRow());
+        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getFirstName() , row, 1);
+        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getLastName(), row, 2);
+        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getAge(), row, 3);
         
-        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getGender() , teachersTable.getSelectedRow(), 4);
-        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getPhoneNumber(), teachersTable.getSelectedRow(), 5);
+        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getGender() , row, 4);
+        ((DefaultTableModel)teachersTable.getModel()).setValueAt(teacher.getPhoneNumber(), row, 5);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ageComboBox;
+    private javax.swing.JButton backBtn2;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clearBtn;
     private javax.swing.JButton deleteBtn;

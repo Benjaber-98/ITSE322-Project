@@ -15,6 +15,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import itse322.project.Controllers.StudentController;
+import itse322.project.LoggedUser;
 import itse322.project.Message;
 import itse322.project.Models.Student;
 import java.awt.Color;
@@ -99,6 +100,7 @@ public class Students extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        backBtn = new javax.swing.JButton();
 
         setTitle("Manage Students");
         setResizable(false);
@@ -322,13 +324,23 @@ public class Students extends javax.swing.JFrame {
                 .addGap(77, 77, 77))
         );
 
+        backBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\Icons\\back.png")); // NOI18N
+        backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -349,7 +361,8 @@ public class Students extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(detailsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(deleteBtn)
-                    .addComponent(exportBtn))
+                    .addComponent(exportBtn)
+                    .addComponent(backBtn))
                 .addGap(765, 765, 765))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
@@ -398,6 +411,9 @@ public class Students extends javax.swing.JFrame {
         
         if(selectedRow != -1) {
             int sid = Integer.parseInt(studentsTable.getValueAt(selectedRow, 0).toString() );
+            String firstName = studentsTable.getValueAt(selectedRow, 1).toString();
+            String lastName = studentsTable.getValueAt(selectedRow, 2).toString();
+            log.info(LoggedUser.getUsername() + " Deleted the student " + sid + " - " + firstName + " " + lastName);
             studentController.deleteStudent(sid);
             int row = studentsTable.convertRowIndexToModel(selectedRow);
             DefaultTableModel model = (DefaultTableModel)studentsTable.getModel();
@@ -409,7 +425,7 @@ public class Students extends javax.swing.JFrame {
 
     private void detailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsBtnActionPerformed
         
-        int row = studentsTable.getSelectedRow();
+        int row = studentsTable.convertRowIndexToModel(studentsTable.getSelectedRow());
         if(row == -1) return;
         int id = (Integer)studentsTable.getModel().getValueAt(row, 0);
         Student student = studentController.getStudentById(id);
@@ -442,10 +458,12 @@ public class Students extends javax.swing.JFrame {
             studentController.addStudent(student);
             resetFields();
             refreshTable();
+            log.info(LoggedUser.getUsername() + " Added a student " + student.getFirstName() + " " + student.getLastName());
         } else {
             student.setId( Integer.parseInt( idLabel.getText() ) );
             studentController.updateStudent(student);
             updateStudentRow(student);
+            log.info(LoggedUser.getUsername() + " Updated the student " + student.getId());
         }
 
     }//GEN-LAST:event_saveStudentBtnActionPerformed
@@ -484,6 +502,8 @@ public class Students extends javax.swing.JFrame {
                 }
             }
             doc.add(pdfTable);
+            
+            doc.add(new Paragraph("Number Of Students : " + studentsTable.getRowCount()));
                         
             doc.add(new Paragraph("Created At : "+getCurrentTime(), 
                     FontFactory.getFont(FontFactory.TIMES_BOLD, 12, BaseColor.BLACK) 
@@ -496,6 +516,10 @@ public class Students extends javax.swing.JFrame {
             log.error("\n--------Error Message------\n",ex);
         }
     }//GEN-LAST:event_exportBtnActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_backBtnActionPerformed
 
     private String getCurrentTime() {
         //Current Milliseconds
@@ -660,16 +684,18 @@ public class Students extends javax.swing.JFrame {
     
     
     private void updateStudentRow(Student student) {
-        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getFirstName() , studentsTable.getSelectedRow(), 1);
-        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getLastName(), studentsTable.getSelectedRow(), 2);
-        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getAge(), studentsTable.getSelectedRow(), 3);
+        int row = studentsTable.convertRowIndexToModel(studentsTable.getSelectedRow());
+        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getFirstName() , row, 1);
+        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getLastName(), row, 2);
+        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getAge(), row, 3);
         
-        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getGender() , studentsTable.getSelectedRow(), 4);
-        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getPhoneNumber(), studentsTable.getSelectedRow(), 5);
+        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getGender() , row, 4);
+        ((DefaultTableModel)studentsTable.getModel()).setValueAt( student.getPhoneNumber(), row, 5);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ageComboBox;
+    private javax.swing.JButton backBtn;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clearBtn;
     private javax.swing.JButton deleteBtn;

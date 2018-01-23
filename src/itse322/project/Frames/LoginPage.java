@@ -7,6 +7,7 @@ package itse322.project.Frames;
 
 import com.mysql.jdbc.log.Log;
 import itse322.project.DbConnection;
+import itse322.project.LoggedUser;
 import itse322.project.Message;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -65,7 +66,7 @@ public class LoginPage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Training Center Management System");
         setForeground(java.awt.Color.white);
-        setLocation(new java.awt.Point(0, 0));
+        setLocation(new java.awt.Point(300, 150));
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(760, 450));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -259,18 +260,17 @@ public class LoginPage extends javax.swing.JFrame {
             prepared.setString(2, myHash);
             rs = prepared.executeQuery();
             if(rs.next()) {
+                LoggedUser.setUsername(username);
                 log.info(username + " Logget In");
-                new MainPage(username).setVisible(true);
+                new MainPage().setVisible(true);
                 setVisible(false);
 
             } else {
                 Message.showWarningMessage("Please check your username and password");
                 log.info("Wrong Password Entered");
             }
-        } catch (SQLException ex) {
-            Message.showWarningMessage(ex.toString());
-        } catch (NoSuchAlgorithmException ex) {
-            System.err.println(ex.toString());
+        } catch (SQLException | NoSuchAlgorithmException ex) {
+            log.error(ex.toString());
         }
         finally {
 
@@ -283,7 +283,7 @@ public class LoginPage extends javax.swing.JFrame {
                     connection.close();
 
             } catch (SQLException ex) {
-                Message.showWarningMessage(ex.toString());
+                log.warn(ex.toString());
             }
         }
     }

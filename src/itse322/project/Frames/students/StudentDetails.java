@@ -191,7 +191,7 @@ public class StudentDetails extends javax.swing.JFrame {
                 deleteRegestrationBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(deleteRegestrationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 590, -1, -1));
+        getContentPane().add(deleteRegestrationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 600, -1, -1));
 
         backBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\Icons\\back.png")); // NOI18N
         backBtn.setText("Back");
@@ -200,7 +200,7 @@ public class StudentDetails extends javax.swing.JFrame {
                 backBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 590, 132, -1));
+        getContentPane().add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 132, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -222,7 +222,8 @@ public class StudentDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void deleteRegestrationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRegestrationBtnActionPerformed
-        int selectedRow = studentDetailsTable.getSelectedRow();
+        int selectedRow = studentDetailsTable.convertRowIndexToModel(studentDetailsTable.getSelectedRow());
+        
         
         int dialogButton = JOptionPane.YES_NO_OPTION;
         if(selectedRow != -1) {

@@ -113,6 +113,7 @@ public class Courses extends javax.swing.JFrame {
         coursesTable = new javax.swing.JTable();
         exportCourses = new javax.swing.JButton();
         deleteCourseBtn = new javax.swing.JButton();
+        backBtn2 = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -345,13 +346,23 @@ public class Courses extends javax.swing.JFrame {
             }
         });
 
+        backBtn2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\Icons\\back.png")); // NOI18N
+        backBtn2.setText("Back");
+        backBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtn2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -374,7 +385,9 @@ public class Courses extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(exportCourses)
-                    .addComponent(deleteCourseBtn))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(deleteCourseBtn)
+                        .addComponent(backBtn2)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -596,6 +609,8 @@ public class Courses extends javax.swing.JFrame {
             }
             doc.add(pdfTable);
                         
+            doc.add(new Paragraph("Number Of Courses : " + coursesTable.getRowCount()));
+            
             doc.add(new Paragraph("Created At : "+getCurrentTime(), 
                     FontFactory.getFont(FontFactory.TIMES_BOLD, 12, BaseColor.BLACK) 
             ));
@@ -615,6 +630,10 @@ public class Courses extends javax.swing.JFrame {
             new StudentDetails((Student)list.getModel().getElementAt(index)).setVisible(true);
         }
     }//GEN-LAST:event_studentsListMouseClicked
+
+    private void backBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_backBtn2ActionPerformed
 
     private String getCurrentTime() {
         //Current Milliseconds
@@ -813,6 +832,9 @@ public class Courses extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton backBtn1;
+    private javax.swing.JButton backBtn2;
     private javax.swing.JButton clearBtn;
     private javax.swing.JTextField courseNameTextField;
     private javax.swing.JTable coursesTable;

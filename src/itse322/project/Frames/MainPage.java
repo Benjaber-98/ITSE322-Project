@@ -3,6 +3,7 @@ package itse322.project.Frames;
 import itse322.project.Frames.teachers.Teachers;
 import itse322.project.Frames.courses.Courses;
 import itse322.project.Frames.students.Students;
+import itse322.project.LoggedUser;
 import org.apache.log4j.Logger;
 
 /*
@@ -21,18 +22,13 @@ public class MainPage extends javax.swing.JFrame {
     /**
      * Creates new form MainPage
      */
-    private String username;
     private Logger log = Logger.getLogger(MainPage.class);
     
     public MainPage() {
         initComponents();
+        usernameLabel.setText("Welcome " + LoggedUser.getUsername());
     }
     
-    public MainPage(String username) {
-        initComponents();
-        this.username = username;
-        usernameLabel.setText("Welcome " + this.username);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,7 +59,7 @@ public class MainPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(61, 68, 72));
-        setPreferredSize(new java.awt.Dimension(860, 560));
+        setLocation(new java.awt.Point(300, 100));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -208,7 +204,7 @@ public class MainPage extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Welcome to");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\Icons\\if_Brain-Games-red_190305.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mahmoud\\Documents\\NetBeansProjects\\ITSE322 Project\\images\\house-home-icon-70046.png")); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -219,29 +215,29 @@ public class MainPage extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(80, 80, 80)
                 .addComponent(jLabel5)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1)))
-                .addContainerGap(522, Short.MAX_VALUE))
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel6)))
+                .addContainerGap(496, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addGap(48, 48, 48))
+                .addGap(42, 42, 42))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 900, 160));
@@ -257,6 +253,7 @@ public class MainPage extends javax.swing.JFrame {
         logoutBtn.setForeground(new java.awt.Color(255, 255, 255));
         logoutBtn.setText("Log Out");
         logoutBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(13, 81, 186), 2, true));
+        logoutBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logoutBtn.setFocusPainted(false);
         logoutBtn.setPreferredSize(new java.awt.Dimension(46, 15));
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -272,9 +269,9 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(usernameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 573, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 632, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+                .addGap(28, 28, 28))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,7 +290,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_teacherLabelMouseClicked
 
     private void studentLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentLabelMouseClicked
-        new Teachers().setVisible(true);
+        new Students().setVisible(true);
     }//GEN-LAST:event_studentLabelMouseClicked
 
     private void courseLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_courseLabelMouseClicked
@@ -301,11 +298,13 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_courseLabelMouseClicked
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        log.info(this.username + " Logget Out");
+        log.info(LoggedUser.getUsername() + " Logget Out");
+        LoggedUser.setUsername(null);
         this.setVisible(false);
         new LoginPage().setVisible(true);
     }//GEN-LAST:event_logoutBtnActionPerformed
 
+     
     /**
      * @param args the command line arguments
      */
