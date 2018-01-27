@@ -17,6 +17,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import itse322.project.Controllers.CoursesController;
 import itse322.project.Controllers.TeacherController;
 import itse322.project.Frames.students.StudentDetails;
+import itse322.project.LoggedUser;
 import itse322.project.Message;
 import itse322.project.Models.Course;
 import itse322.project.Models.Student;
@@ -414,10 +415,12 @@ public class Courses extends javax.swing.JFrame {
             coursesController.addCourse(c);
             resetFields();
             refreshTable();
+            log.info(LoggedUser.getUsername() + " Added a new course \"" + c.getCourseName() + "\"");
         } else {
             c.setId( Integer.parseInt(idLabel.getText()) );
             coursesController.updateCourse(c);
             updateCourseRow(c);
+            log.info(LoggedUser.getUsername() + " Updated course " + c.getId() + " - " + c.getCourseName());
         }
         
         
@@ -460,7 +463,9 @@ public class Courses extends javax.swing.JFrame {
         }
         if(selectedRow != -1) {
             int cid = Integer.parseInt( coursesTable.getValueAt(selectedRow, 0).toString() );
+            String cname = coursesTable.getValueAt(selectedRow, 1).toString();
             coursesController.deleteCourse(cid);
+            log.warn(LoggedUser.getUsername() + " Deleted course " + cid + " - " + cname);
             int row = coursesTable.convertRowIndexToModel(selectedRow);
             DefaultTableModel model = (DefaultTableModel)coursesTable.getModel();
             
@@ -551,7 +556,7 @@ public class Courses extends javax.swing.JFrame {
                 cell.setPaddingBottom(3);
                 studentsTable.addCell(cell);
                 
-                cell = new PdfPCell( new Paragraph( ""+s.getPhoneNumber()) );
+                cell = new PdfPCell( new Paragraph( "" + s.getPhoneNumber()) );
                 cell.setPaddingTop(3);
                 cell.setPaddingBottom(3);
                 studentsTable.addCell(cell);
@@ -567,6 +572,7 @@ public class Courses extends javax.swing.JFrame {
             ));
             
             doc.close();
+            log.info(LoggedUser.getUsername() + " Exported " + file+".pdf Report");
             Message.showDoneMessage("Report Created Successfully");
         } catch (DocumentException | FileNotFoundException ex) {
             Message.showWarningMessage(ex.toString());
@@ -616,6 +622,7 @@ public class Courses extends javax.swing.JFrame {
             ));
             
             doc.close();
+            log.info(LoggedUser.getUsername() + " Exported " + file+".pdf Report");
             Message.showDoneMessage("Report Created Successfully");
         } catch (DocumentException | FileNotFoundException ex) {
             Message.showWarningMessage(ex.toString());

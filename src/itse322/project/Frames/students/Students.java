@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
@@ -382,6 +384,12 @@ public class Students extends javax.swing.JFrame {
             Message.showWarningMessage("All Fields Are Required");
             return true;
         }
+        Pattern pattern = Pattern.compile("[^0-9]");
+        Matcher m = pattern.matcher(phoneNumberTextField.getText());
+        if(m.find()) {
+            Message.showWarningMessage("Phone number must be valid number");
+            return true;
+        }
         return false;
     }
 
@@ -510,6 +518,7 @@ public class Students extends javax.swing.JFrame {
             ));
             
             doc.close();
+            log.info(LoggedUser.getUsername() + " Exported Students " + file+".pdf Report");
             Message.showDoneMessage("Report Created Successfully");
         } catch (DocumentException | FileNotFoundException ex) {
             Message.showWarningMessage(ex.toString());

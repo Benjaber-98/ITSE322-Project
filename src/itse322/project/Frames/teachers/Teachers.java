@@ -16,6 +16,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import itse322.project.Controllers.StudentController;
 import itse322.project.Controllers.TeacherController;
+import itse322.project.LoggedUser;
 import itse322.project.Message;
 import itse322.project.Models.Student;
 import itse322.project.Models.Teacher;
@@ -28,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
@@ -383,6 +386,12 @@ public class Teachers extends javax.swing.JFrame {
             Message.showWarningMessage("All Fields Are Required");
             return true;
         }
+        Pattern pattern = Pattern.compile("[^0-9]");
+        Matcher m = pattern.matcher(phoneNumberTextField.getText());
+        if(m.find()) {
+            Message.showWarningMessage("Phone number must be valid number");
+            return true;
+        }
         return false;
     }
 
@@ -412,9 +421,12 @@ public class Teachers extends javax.swing.JFrame {
         
         if(selectedRow != -1) {
             int tid = Integer.parseInt(teachersTable.getValueAt(selectedRow, 0).toString() );
+            String firstName = teachersTable.getValueAt(selectedRow, 1).toString();
+            String lastName = teachersTable.getValueAt(selectedRow, 2).toString();
             teacherController.deleteTeacher(tid);
             int row = teachersTable.convertRowIndexToModel(selectedRow);
             DefaultTableModel model = (DefaultTableModel)teachersTable.getModel();
+            log.info(LoggedUser.getUsername() + " Deleted the teacher " + tid + " - " + firstName + " " + lastName);
 //            studentsTable.setRowSelectionInterval( nextRow, nextRow );
             model.removeRow(row);
             resetFields();
@@ -423,7 +435,7 @@ public class Teachers extends javax.swing.JFrame {
 
     private void detailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsBtnActionPerformed
         
-        int row = teachersTable.getSelectedRow();
+        int row = teachersTable.convertRowIndexToModel(teachersTable.getSelectedRow());
         if(row == -1) return;
         int id = (Integer)teachersTable.getModel().getValueAt(row, 0);
         Teacher teacher = teacherController.getTeacherById(id);
@@ -454,11 +466,13 @@ public class Teachers extends javax.swing.JFrame {
 
         if(idLabel.getText().equals("Random Id")) {
             teacherController.addTeacher(teacher);
+            log.info(LoggedUser.getUsername() + " Added a student " + teacher.getFirstName() + " " + teacher.getLastName());
             resetFields();
             refreshTable();
         } else {
             teacher.setId( Integer.parseInt( idLabel.getText() ) );
             teacherController.updateTeacher(teacher);
+            log.info(LoggedUser.getUsername() + " Updated the student " + teacher.getId());
             updateTeacherRow(teacher);
         }
 
@@ -506,6 +520,7 @@ public class Teachers extends javax.swing.JFrame {
             ));
             
             doc.close();
+            log.info(LoggedUser.getUsername() + " Exported Teachers " + file+".pdf Report");
             Message.showDoneMessage("Report Created Successfully");
         } catch (DocumentException | FileNotFoundException ex) {
             Message.showWarningMessage(ex.toString());

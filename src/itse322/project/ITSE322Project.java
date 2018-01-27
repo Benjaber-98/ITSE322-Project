@@ -24,8 +24,8 @@ public class ITSE322Project {
     public static void main(String[] args) {
         Logger log = Logger.getLogger(ITSE322Project.class);
         LoginPage login = new LoginPage();
-        //login.setVisible(true);
-        new MainPage().setVisible(true);
+        login.setVisible(true);
+        //new MainPage().setVisible(true);
         //new Students().setVisible(true);
         //new Courses().setVisible(true);
     }

@@ -7,6 +7,7 @@ package itse322.project.Frames.students;
 
 import itse322.project.Controllers.CoursesController;
 import itse322.project.Controllers.StudentController;
+import itse322.project.LoggedUser;
 import itse322.project.Message;
 import itse322.project.Models.Course;
 import itse322.project.Models.Student;
@@ -218,6 +219,7 @@ public class StudentDetails extends javax.swing.JFrame {
         }
         Course c = (Course)dateComboBox.getSelectedItem();
         studentController.addCourseToStudent(student.getId(), c.getId());
+        log.info(LoggedUser.getUsername() + " Added Course " + coursesComboBox.getSelectedItem() + " To " + student.getFirstName() + " " + student.getLastName());
         refreshTable();
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -238,6 +240,8 @@ public class StudentDetails extends javax.swing.JFrame {
             int cid = Integer.parseInt(String.valueOf(studentDetailsTable.getValueAt(selectedRow, 0) ) );
             int row = studentDetailsTable.convertRowIndexToModel(selectedRow);
             studentController.deleteRegestrationForStudent(sid, cid);
+            log.info(LoggedUser.getUsername() + " Removed Course " + studentDetailsTable.getValueAt(selectedRow, 1) + " From " + student.getFirstName() + " " + student.getLastName());
+
             DefaultTableModel model = (DefaultTableModel)studentDetailsTable.getModel();
             model.removeRow(row);
         }

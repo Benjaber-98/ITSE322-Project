@@ -9,6 +9,7 @@ import itse322.project.Frames.students.*;
 import itse322.project.Controllers.CoursesController;
 import itse322.project.Controllers.StudentController;
 import itse322.project.Controllers.TeacherController;
+import itse322.project.LoggedUser;
 import itse322.project.Message;
 import itse322.project.Models.Course;
 import itse322.project.Models.Student;
@@ -180,6 +181,7 @@ public class TeacherDetails extends javax.swing.JFrame {
             int cid = Integer.parseInt(String.valueOf(teacherDetailsTable.getValueAt(selectedRow, 0) ) );
             int row = teacherDetailsTable.convertRowIndexToModel(selectedRow);
             teacherController.deleteRegestrationForTeacher(tid, cid);
+            log.info(LoggedUser.getUsername() + " Removed Course " + teacherDetailsTable.getValueAt(selectedRow, 1) + " From " + teacher.getFirstName() + " " + teacher.getLastName());
             DefaultTableModel model = (DefaultTableModel)teacherDetailsTable.getModel();
             model.removeRow(row);
         }
