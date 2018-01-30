@@ -319,7 +319,7 @@ public class StudentDetails extends javax.swing.JFrame {
     
     //return model contains all content to put in a table
     private DefaultTableModel getTableContent() {
-        String[] columnNames = {"Course Id", "Course Name","Teacher","Hours", "Start Date", "End Date"};
+        String[] columnNames = {"Course Id", "Course Name","Teacher","Hours","Price", "Start Date", "End Date"};
 
         DefaultTableModel dtm = new DefaultTableModel(columnNames, 0){
             @Override
@@ -328,7 +328,7 @@ public class StudentDetails extends javax.swing.JFrame {
             }
         };
 
-        dtm.setColumnCount(6);
+        dtm.setColumnCount(7);
         
         
         Student studentDetails = studentController.getStudentByIdWithCourses(student.getId());
@@ -339,6 +339,7 @@ public class StudentDetails extends javax.swing.JFrame {
                 c.getCourseName(),
                 c.getTeacher().getFirstName() + " " + c.getTeacher().getLastName(),
                 c.getHours(),
+                c.getPrice(),
                 c.getStartDate(),
                 c.getEndDate()
             });

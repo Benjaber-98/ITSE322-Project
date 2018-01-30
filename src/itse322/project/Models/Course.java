@@ -19,8 +19,9 @@ public class Course {
     private String startDate;
     private String endDate;
     private int hours;
+    private int price;
     
-    private Teacher teacher;
+    private Person teacher;
     private HashSet<Student> students;
 
     public int getId() {
@@ -63,11 +64,11 @@ public class Course {
         this.hours = hours;
     }
     
-    public Teacher getTeacher() {
+    public Person getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(Person teacher) {
         this.teacher = teacher;
     }
     
@@ -79,9 +80,19 @@ public class Course {
         return students;
     }
     
+     public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+    
     @Override
     public String toString(){
         return this.getStartDate() + " => " + this.getEndDate();
     }
+
+   
             
 }

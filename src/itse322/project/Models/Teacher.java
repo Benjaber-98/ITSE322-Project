@@ -17,8 +17,5 @@ public class Teacher extends Person {
         super();
     }
     
-    public String toString(){
-        return this.firstName + " " + this.lastName;
-    }
     
 }

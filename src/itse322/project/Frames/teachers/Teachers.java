@@ -5,40 +5,31 @@
  */
 package itse322.project.Frames.teachers;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import itse322.project.Controllers.StudentController;
 import itse322.project.Controllers.TeacherController;
 import itse322.project.LoggedUser;
-import itse322.project.Message;
-import itse322.project.Models.Student;
+import itse322.project.Models.Person;
 import itse322.project.Models.Teacher;
+import itse322.project.MyTable;
+import itse322.project.PDFCreator;
+import itse322.project.Validator;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import org.apache.log4j.Logger;
@@ -379,22 +370,6 @@ public class Teachers extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean fieldsAreEmpty() {
-        if (firstNameTextField.getText().equals("") 
-                || lastNameTextField.getText().equals("")
-                || phoneNumberTextField.getText().equals("")) {
-            Message.showWarningMessage("All Fields Are Required");
-            return true;
-        }
-        Pattern pattern = Pattern.compile("[^0-9]");
-        Matcher m = pattern.matcher(phoneNumberTextField.getText());
-        if(m.find()) {
-            Message.showWarningMessage("Phone number must be valid number");
-            return true;
-        }
-        return false;
-    }
-
     private void resetFields() {
         int row = teachersTable.getSelectedRow();
         idLabel.setText("Random Id");
@@ -434,8 +409,10 @@ public class Teachers extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void detailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsBtnActionPerformed
+        int row = teachersTable.getSelectedRow();
+        if(row == -1) return;
         
-        int row = teachersTable.convertRowIndexToModel(teachersTable.getSelectedRow());
+        row = teachersTable.convertRowIndexToModel(teachersTable.getSelectedRow());
         if(row == -1) return;
         int id = (Integer)teachersTable.getModel().getValueAt(row, 0);
         Teacher teacher = teacherController.getTeacherById(id);
@@ -449,7 +426,13 @@ public class Teachers extends javax.swing.JFrame {
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void saveTeacherBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTeacherBtnActionPerformed
-        if( fieldsAreEmpty() ) return;
+        Validator validator = new Validator();
+        if(! validator.isValid( 
+                new Object[] {firstNameTextField, lastNameTextField, phoneNumberTextField} ))
+        {
+            
+            return;
+        }
 
         Teacher teacher = new Teacher();
         teacher.setFirstName(firstNameTextField.getText());
@@ -479,53 +462,8 @@ public class Teachers extends javax.swing.JFrame {
     }//GEN-LAST:event_saveTeacherBtnActionPerformed
 
     private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
-        try {
-            String file = JOptionPane.showInputDialog("Enter file name");
-            if(file == "" || file == null) return;
-            Document doc = new Document();
-            PdfWriter.getInstance(doc, new FileOutputStream("Teacher reports\\"+file+".pdf"));
-            doc.open();
-            doc.add(new Paragraph("Teachers' table report",
-                    FontFactory.getFont(FontFactory.TIMES_BOLD, 24, BaseColor.BLUE) )
-            );
-            doc.add(new Paragraph("  "));
-            PdfPTable pdfTable = new PdfPTable(teachersTable.getColumnCount());
-            pdfTable.setWidthPercentage(100);
-            //adding table headers
-            for (int i = 0; i < teachersTable.getColumnCount(); i++) {
-                PdfPCell cell = new PdfPCell(new Paragraph(teachersTable.getColumnName(i)));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                cell.setPaddingTop(5);
-                cell.setPaddingBottom(5);
-                pdfTable.addCell(cell);
-            }
-            //extracting data from the JTable and inserting it to PdfPTable
-            for (int rows = 0; rows < teachersTable.getRowCount(); rows++) {
-                for (int cols = 0; cols < teachersTable.getColumnCount(); cols++) {
-                    PdfPCell cell = new PdfPCell(
-                            new Paragraph(teachersTable.getModel().getValueAt(rows, cols).toString())
-                    );
-                    cell.setPaddingTop(3);
-                    cell.setPaddingBottom(3);
-                    pdfTable.addCell(cell);
-                }
-            }
-            doc.add(pdfTable);
-                        
-            doc.add(new Paragraph("Number Of Teachers : " + teachersTable.getRowCount()));
-            
-            doc.add(new Paragraph("Created At : "+getCurrentTime(), 
-                    FontFactory.getFont(FontFactory.TIMES_BOLD, 12, BaseColor.BLACK) 
-            ));
-            
-            doc.close();
-            log.info(LoggedUser.getUsername() + " Exported Teachers " + file+".pdf Report");
-            Message.showDoneMessage("Report Created Successfully");
-        } catch (DocumentException | FileNotFoundException ex) {
-            Message.showWarningMessage(ex.toString());
-            log.error("\n--------Error Message------\n",ex);
-        }
+        PDFCreator pdfCreator = new PDFCreator();
+        pdfCreator.createPDF("Teachers", teachersTable);
     }//GEN-LAST:event_exportBtnActionPerformed
 
     private void backBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn2ActionPerformed
@@ -611,6 +549,12 @@ public class Teachers extends javax.swing.JFrame {
     private void refreshTable() {
         teachersTable = new javax.swing.JTable();
         teachersTable.setModel(getTableContent());
+        
+        TableColumn col = teachersTable.getColumn("ID");
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalTextPosition(SwingConstants.LEFT);
+        col.setCellRenderer(dtcr);
+        
         teachersTable.setGridColor(Color.white);
         teachersTable.setRowHeight(30);
         teachersTable.setBackground(new java.awt.Color(255, 255, 255));
@@ -624,6 +568,7 @@ public class Teachers extends javax.swing.JFrame {
         header.setForeground(Color.white);
         header.setAlignmentX(LEFT_ALIGNMENT);
         header.setPreferredSize(new Dimension(jScrollPane1.getWidth(), 30));
+        
         jScrollPane1.setViewportView(teachersTable);
         if (teachersTable.getColumnModel().getColumnCount() > 0) {
             teachersTable.getColumnModel().getColumn(0).setResizable(false);
@@ -632,6 +577,9 @@ public class Teachers extends javax.swing.JFrame {
             teachersTable.getColumnModel().getColumn(3).setResizable(false);
             teachersTable.getColumnModel().getColumn(4).setResizable(false);
         }
+        
+        
+        
         //sorting by id
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(teachersTable.getModel());
         teachersTable.setRowSorter(sorter);
@@ -652,7 +600,7 @@ public class Teachers extends javax.swing.JFrame {
     private DefaultTableModel getTableContent() {
         String[] columnNames = {"ID", "First Name","Last Name","Age", "Gender", "Phone Number"};
 
-        DefaultTableModel dtm = new DefaultTableModel(columnNames, 0){
+        MyTable dtm = new MyTable(columnNames, 0){
             @Override
             public boolean isCellEditable(int row, int column) {
                return false;
@@ -664,16 +612,17 @@ public class Teachers extends javax.swing.JFrame {
         
         HashSet<Teacher> teachers = teacherController.getAllTeachers();
         
-        for(Teacher s : teachers) {
+        for(Person teacher : teachers) {
             dtm.addRow(new Object[] {
-                s.getId(),
-                s.getFirstName(),
-                s.getLastName(),
-                s.getAge(),
-                s.getGender(),
-                s.getPhoneNumber()
+                teacher.getId(),
+                teacher.getFirstName(),
+                teacher.getLastName(),
+                teacher.getAge(),
+                teacher.getGender(),
+                teacher.getPhoneNumber()
             });
         }
+        
         
         return dtm;
     }

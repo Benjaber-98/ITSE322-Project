@@ -5,38 +5,32 @@
  */
 package itse322.project.Frames.students;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+
 import itse322.project.Controllers.StudentController;
 import itse322.project.LoggedUser;
-import itse322.project.Message;
+import itse322.project.Models.Person;
 import itse322.project.Models.Student;
+import itse322.project.MyTable;
+import itse322.project.PDFCreator;
+import itse322.project.Validator;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import org.apache.log4j.Logger;
@@ -377,22 +371,7 @@ public class Students extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean fieldsAreEmpty() {
-        if (firstNameTextField.getText().equals("") 
-                || lastNameTextField.getText().equals("")
-                || phoneNumberTextField.getText().equals("")) {
-            Message.showWarningMessage("All Fields Are Required");
-            return true;
-        }
-        Pattern pattern = Pattern.compile("[^0-9]");
-        Matcher m = pattern.matcher(phoneNumberTextField.getText());
-        if(m.find()) {
-            Message.showWarningMessage("Phone number must be valid number");
-            return true;
-        }
-        return false;
-    }
-
+    
     private void resetFields() {
         int row = studentsTable.getSelectedRow();
         idLabel.setText("Random Id");
@@ -432,8 +411,10 @@ public class Students extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void detailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsBtnActionPerformed
+        int row = studentsTable.getSelectedRow();
+        if(row == -1) return;
         
-        int row = studentsTable.convertRowIndexToModel(studentsTable.getSelectedRow());
+        row = studentsTable.convertRowIndexToModel(studentsTable.getSelectedRow());
         if(row == -1) return;
         int id = (Integer)studentsTable.getModel().getValueAt(row, 0);
         Student student = studentController.getStudentById(id);
@@ -447,8 +428,14 @@ public class Students extends javax.swing.JFrame {
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void saveStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStudentBtnActionPerformed
-        if( fieldsAreEmpty() ) return;
-
+        Validator validator = new Validator();
+        if(! validator.isValid( 
+                new Object[] {firstNameTextField, lastNameTextField, phoneNumberTextField} ))
+        {
+            
+            return;
+        }
+        
         Student student = new Student();
         student.setFirstName(firstNameTextField.getText());
         student.setLastName(lastNameTextField.getText());
@@ -477,73 +464,14 @@ public class Students extends javax.swing.JFrame {
     }//GEN-LAST:event_saveStudentBtnActionPerformed
 
     private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
-        try {
-            String file = JOptionPane.showInputDialog("Enter file name");
-            if(file == "" || file == null) return;
-            Document doc = new Document();
-            PdfWriter.getInstance(doc, new FileOutputStream("Student reports\\"+file+".pdf"));
-            doc.open();
-            doc.add(new Paragraph("Students' table report",
-                    FontFactory.getFont(FontFactory.TIMES_BOLD, 24, BaseColor.BLUE) )
-            );
-            doc.add(new Paragraph("  "));
-            PdfPTable pdfTable = new PdfPTable(studentsTable.getColumnCount());
-            pdfTable.setWidthPercentage(100);
-            //adding table headers
-            for (int i = 0; i < studentsTable.getColumnCount(); i++) {
-                PdfPCell cell = new PdfPCell(new Paragraph(studentsTable.getColumnName(i)));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                cell.setPaddingTop(5);
-                cell.setPaddingBottom(5);
-                pdfTable.addCell(cell);
-            }
-            //extracting data from the JTable and inserting it to PdfPTable
-            for (int rows = 0; rows < studentsTable.getRowCount(); rows++) {
-                for (int cols = 0; cols < studentsTable.getColumnCount(); cols++) {
-                    PdfPCell cell = new PdfPCell(
-                            new Paragraph(studentsTable.getModel().getValueAt(rows, cols).toString())
-                    );
-                    cell.setPaddingTop(3);
-                    cell.setPaddingBottom(3);
-                    pdfTable.addCell(cell);
-                }
-            }
-            doc.add(pdfTable);
-            
-            doc.add(new Paragraph("Number Of Students : " + studentsTable.getRowCount()));
-                        
-            doc.add(new Paragraph("Created At : "+getCurrentTime(), 
-                    FontFactory.getFont(FontFactory.TIMES_BOLD, 12, BaseColor.BLACK) 
-            ));
-            
-            doc.close();
-            log.info(LoggedUser.getUsername() + " Exported Students " + file+".pdf Report");
-            Message.showDoneMessage("Report Created Successfully");
-        } catch (DocumentException | FileNotFoundException ex) {
-            Message.showWarningMessage(ex.toString());
-            log.error("\n--------Error Message------\n",ex);
-        }
+        PDFCreator pdfCreator = new PDFCreator();
+        pdfCreator.createPDF("Students", studentsTable);
     }//GEN-LAST:event_exportBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_backBtnActionPerformed
 
-    private String getCurrentTime() {
-        //Current Milliseconds
-        long currentMilliSeconds = System.currentTimeMillis();
-
-        //The Format Of Timestamp
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); 
-
-        //Creating a new Date from milliseconds
-        Date currentDate = new Date(currentMilliSeconds);
-
-        //Getting the timestamp in variable
-        String time = dateFormat.format( currentDate );
-        return time;
-    }
     
     private void getStudentDetails() {
         studentsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -623,6 +551,12 @@ public class Students extends javax.swing.JFrame {
     private void refreshTable() {
         studentsTable = new javax.swing.JTable();
         studentsTable.setModel(getTableContent());
+        
+        TableColumn col = studentsTable.getColumn("ID");
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalTextPosition(SwingConstants.LEFT);
+        col.setCellRenderer(dtcr);
+        
         studentsTable.setGridColor(Color.white);
         studentsTable.setRowHeight(30);
         studentsTable.setBackground(new java.awt.Color(255, 255, 255));
@@ -664,7 +598,7 @@ public class Students extends javax.swing.JFrame {
     private DefaultTableModel getTableContent() {
         String[] columnNames = {"ID", "First Name","Last Name","Age", "Gender", "Phone Number"};
 
-        DefaultTableModel dtm = new DefaultTableModel(columnNames, 0){
+        MyTable dtm = new MyTable(columnNames, 0){
             @Override
             public boolean isCellEditable(int row, int column) {
                return false;
@@ -676,14 +610,14 @@ public class Students extends javax.swing.JFrame {
         
         HashSet<Student> students = studentController.getAllStudents();
         
-        for(Student s : students) {
+        for(Person student : students) {
             dtm.addRow(new Object[] {
-                s.getId(),
-                s.getFirstName(),
-                s.getLastName(),
-                s.getAge(),
-                s.getGender(),
-                s.getPhoneNumber()
+                student.getId(),
+                student.getFirstName(),
+                student.getLastName(),
+                student.getAge(),
+                student.getGender(),
+                student.getPhoneNumber()
             });
         }
         

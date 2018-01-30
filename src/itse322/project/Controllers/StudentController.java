@@ -29,7 +29,7 @@ public class StudentController {
         try {
             c = DbConnection.dbConnect();
             s = c.createStatement();
-            String query = "SELECT * FROM Students ORDER BY sid;";
+            String query = "SELECT * FROM Students;";
             rs = s.executeQuery(query);
             HashSet<Student> students = new HashSet<>();
             while(rs.next()) {
@@ -131,6 +131,7 @@ public class StudentController {
                 course.setStartDate(rs.getDate("c.start_date").toString());
                 course.setEndDate(rs.getDate("c.end_date").toString());
                 course.setHours(rs.getInt("c.hours"));
+                course.setPrice(rs.getInt("c.price"));
                 Teacher teacher = new Teacher();
                 teacher.setFirstName(rs.getString("t.first_name"));
                 teacher.setLastName(rs.getString("t.last_name"));

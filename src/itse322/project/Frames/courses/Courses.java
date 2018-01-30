@@ -20,17 +20,19 @@ import itse322.project.Frames.students.StudentDetails;
 import itse322.project.LoggedUser;
 import itse322.project.Message;
 import itse322.project.Models.Course;
+import itse322.project.Models.Person;
 import itse322.project.Models.Student;
 import itse322.project.Models.Teacher;
+import itse322.project.MyTable;
+import itse322.project.PDFCreator;
+import itse322.project.TimeManager;
+import itse322.project.Validator;
 import java.awt.Color;
 import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -38,10 +40,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import org.apache.log4j.Logger;
@@ -106,6 +111,9 @@ public class Courses extends javax.swing.JFrame {
         idLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         teachersComboBox = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        priceTextField = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentsList = new javax.swing.JList<>();
@@ -153,6 +161,7 @@ public class Courses extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 118, 210), 2, true));
+        jPanel1.setPreferredSize(new java.awt.Dimension(390, 370));
 
         courseNameTextField.setBackground(new java.awt.Color(255, 255, 255));
         courseNameTextField.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -205,6 +214,15 @@ public class Courses extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("Teacher :");
 
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel6.setText("Price");
+
+        priceTextField.setBackground(new java.awt.Color(255, 255, 255));
+        priceTextField.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        priceTextField.setBorder(null);
+
+        jSeparator4.setForeground(new java.awt.Color(25, 118, 210));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -213,62 +231,89 @@ public class Courses extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(saveCourseBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(clearBtn))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idLabel)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(courseNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(teachersComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(endDateField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(clearBtn)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(startDateField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(jSeparator4)
+                                                    .addComponent(priceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(53, 53, 53))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(saveCourseBtn)
+                            .addComponent(jLabel6))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(idLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hoursTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(teachersComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(endDateField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                            .addComponent(startDateField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                            .addComponent(hoursTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                            .addComponent(courseNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))))
-                .addGap(25, 25, 25))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(20, 20, 20)
                         .addComponent(courseNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(idLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(hoursTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(priceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(teachersComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(saveCourseBtn))
@@ -310,10 +355,10 @@ public class Courses extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(exportStudents)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Registered Students", jPanel4);
@@ -382,7 +427,7 @@ public class Courses extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(exportCourses)
@@ -398,11 +443,19 @@ public class Courses extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveCourseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCourseBtnActionPerformed
-        if( validateFields() ) return;
+        Validator validator = new Validator();
+        
+        if(! validator.isValid( 
+                new Object[] {courseNameTextField, startDateField, endDateField, priceTextField}, hoursTextField ))
+        {
+            
+            return;
+        }
         Course c = new Course();
         
         c.setCourseName(courseNameTextField.getText());
         c.setHours(Integer.parseInt(hoursTextField.getText()));
+        c.setPrice(Integer.parseInt(priceTextField.getText()));
         String startDate = ((JTextField)startDateField.getDateEditor().getUiComponent()).getText();
         String endDate = ((JTextField)endDateField.getDateEditor().getUiComponent()).getText();
         c.setStartDate(startDate);
@@ -427,27 +480,6 @@ public class Courses extends javax.swing.JFrame {
         
     }//GEN-LAST:event_saveCourseBtnActionPerformed
 
-    private boolean validateFields() {
-        if (courseNameTextField.getText().equals("") 
-                || hoursTextField.getText().equals("")
-                || startDateField.getDate() == null
-                || endDateField.getDate() == null
-                || !isNum(hoursTextField.getText())
-                ) {
-            Message.showWarningMessage("All Fields Are Required And Should Be Valid");
-            return true;
-        }
-        return false;    
-    }
-    
-    private boolean isNum(String num) {
-        try {
-            int number = Integer.parseInt(num);
-            return true;
-        } catch(Exception ex) {
-            return false;
-        }
-    }
     
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         resetFields();
@@ -477,6 +509,7 @@ public class Courses extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteCourseBtnActionPerformed
 
     private void exportStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportStudentsActionPerformed
+        PDFCreator pdfCreator = new PDFCreator();
         try {
             int row = coursesTable.getSelectedRow();
             String file = coursesTable.getValueAt(row, 0).toString() + "-" +coursesTable.getValueAt(row, 1).toString();
@@ -492,25 +525,12 @@ public class Courses extends javax.swing.JFrame {
             doc.add(new Paragraph("  "));
             PdfPTable courseDetailsTable = new PdfPTable(coursesTable.getColumnCount());
             courseDetailsTable.setWidthPercentage(100);
-            //adding table headers
-            for (int i = 0; i < coursesTable.getColumnCount(); i++) {
-                PdfPCell cell = new PdfPCell(new Paragraph(coursesTable.getColumnName(i)));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                cell.setPaddingTop(5);
-                cell.setPaddingBottom(5);
-                courseDetailsTable.addCell(cell);
-            }
+            
+            pdfCreator.createHeader(coursesTable, courseDetailsTable);
+            
             //extracting data from the JTable and inserting it to PdfPTable
             int modelRow = coursesTable.convertRowIndexToModel(row);
-            for(int col = 0; col < coursesTable.getColumnCount(); col++){
-                PdfPCell cell = new PdfPCell(
-                        new Paragraph(coursesTable.getModel().getValueAt(modelRow, col).toString())
-                );
-                cell.setPaddingTop(3);
-                cell.setPaddingBottom(3);
-                courseDetailsTable.addCell(cell);
-            }
+                pdfCreator.extractRow(coursesTable, courseDetailsTable, modelRow);
             
             doc.add(courseDetailsTable);
             doc.add(new Paragraph(" "));
@@ -566,8 +586,8 @@ public class Courses extends javax.swing.JFrame {
             doc.add(new Paragraph(" "));
             doc.add(studentsTable);
             
-            
-            doc.add(new Paragraph("Created At : "+getCurrentTime(), 
+            doc.add(new Paragraph("Number Of Students : " + students.size() ));
+            doc.add(new Paragraph("Created At : "+TimeManager.getCurrentTime(), 
                     FontFactory.getFont(FontFactory.TIMES_BOLD, 12, BaseColor.BLACK) 
             ));
             
@@ -581,53 +601,9 @@ public class Courses extends javax.swing.JFrame {
     }//GEN-LAST:event_exportStudentsActionPerformed
 
     private void exportCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportCoursesActionPerformed
-        try {
-            String file = JOptionPane.showInputDialog("Enter file name");
-            if(file == "" || file == null) return;
-            Document doc = new Document();
-            PdfWriter.getInstance(doc, new FileOutputStream("Courses reports\\"+file+".pdf"));
-            doc.open();
-            doc.add(new Paragraph("Courses' table report",
-                    FontFactory.getFont(FontFactory.TIMES_BOLD, 24, BaseColor.BLUE) )
-            );
-            doc.add(new Paragraph("  "));
-            PdfPTable pdfTable = new PdfPTable(coursesTable.getColumnCount());
-            pdfTable.setWidthPercentage(100);
-            //adding table headers
-            for (int i = 0; i < coursesTable.getColumnCount(); i++) {
-                PdfPCell cell = new PdfPCell(new Paragraph(coursesTable.getColumnName(i)));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                cell.setPaddingTop(5);
-                cell.setPaddingBottom(5);
-                pdfTable.addCell(cell);
-            }
-            //extracting data from the JTable and inserting it to PdfPTable
-            for (int rows = 0; rows < coursesTable.getRowCount(); rows++) {
-                for (int cols = 0; cols < coursesTable.getColumnCount(); cols++) {
-                    PdfPCell cell = new PdfPCell(
-                            new Paragraph(coursesTable.getModel().getValueAt(rows, cols).toString())
-                    );
-                    cell.setPaddingTop(3);
-                    cell.setPaddingBottom(3);
-                    pdfTable.addCell(cell);
-                }
-            }
-            doc.add(pdfTable);
-                        
-            doc.add(new Paragraph("Number Of Courses : " + coursesTable.getRowCount()));
-            
-            doc.add(new Paragraph("Created At : "+getCurrentTime(), 
-                    FontFactory.getFont(FontFactory.TIMES_BOLD, 12, BaseColor.BLACK) 
-            ));
-            
-            doc.close();
-            log.info(LoggedUser.getUsername() + " Exported " + file+".pdf Report");
-            Message.showDoneMessage("Report Created Successfully");
-        } catch (DocumentException | FileNotFoundException ex) {
-            Message.showWarningMessage(ex.toString());
-            log.error("\n--------Error Message------\n",ex);
-        }
+        PDFCreator pdfCreator = new PDFCreator();
+        pdfCreator.createPDF("Courses", coursesTable);
+                
     }//GEN-LAST:event_exportCoursesActionPerformed
 
     private void studentsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsListMouseClicked
@@ -642,34 +618,23 @@ public class Courses extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backBtn2ActionPerformed
 
-    private String getCurrentTime() {
-        //Current Milliseconds
-        long currentMilliSeconds = System.currentTimeMillis();
-
-        //The Format Of Timestamp
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); 
-
-        //Creating a new Date from milliseconds
-        Date currentDate = new Date(currentMilliSeconds);
-
-        //Getting the timestamp in variable
-        String time = dateFormat.format( currentDate );
-        return time;
-    }
     
-    private HashSet<Student> getListStudent() {
+    
+    public HashSet<Student> getListStudent() {
         HashSet<Student> students = new HashSet<>();
         for(int i = 0; i < studentsList.getModel().getSize(); i++) {
             students.add(studentsList.getModel().getElementAt(i));
         }
         return students;
     }
+   
     
     private void resetFields() {
         int row = coursesTable.getSelectedRow();
         idLabel.setText("Random Id");
         courseNameTextField.setText("");
         hoursTextField.setText("");
+        priceTextField.setText("");
         startDateField.setDate(null);
         endDateField.setDate(null);
         saveCourseBtn.setText("Add");
@@ -686,9 +651,10 @@ public class Courses extends javax.swing.JFrame {
         if(row >= 0) {
             coursesTable.setValueAt( course.getCourseName(), row, 1);
             coursesTable.setValueAt( course.getHours(), row, 2);
-            coursesTable.setValueAt( course.getStartDate(), row, 3);
+            coursesTable.setValueAt( course.getPrice(), row, 3 );
+            coursesTable.setValueAt( course.getStartDate(), row, 4);
 
-            coursesTable.setValueAt( course.getEndDate(), row, 4);
+            coursesTable.setValueAt( course.getEndDate(), row, 5);
         }
         
     }
@@ -696,6 +662,12 @@ public class Courses extends javax.swing.JFrame {
     private void refreshTable() {
         coursesTable = new javax.swing.JTable();
         coursesTable.setModel(getTableContent());
+        
+        TableColumn col = coursesTable.getColumn("ID");
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalTextPosition(SwingConstants.LEFT);
+        col.setCellRenderer(dtcr);
+        
         coursesTable.setGridColor(Color.white);
         coursesTable.setRowHeight(30);
         coursesTable.setBackground(new java.awt.Color(255, 255, 255));
@@ -716,6 +688,7 @@ public class Courses extends javax.swing.JFrame {
             coursesTable.getColumnModel().getColumn(2).setResizable(false);
             coursesTable.getColumnModel().getColumn(3).setResizable(false);
             coursesTable.getColumnModel().getColumn(4).setResizable(false);
+            coursesTable.getColumnModel().getColumn(5).setResizable(false);
         }
         //sorting by id
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(coursesTable.getModel());
@@ -734,16 +707,16 @@ public class Courses extends javax.swing.JFrame {
     }
     
     private DefaultTableModel getTableContent() {
-        String[] columnNames = {"ID", "Course Name","Hours","Start Date", "End Date"};
+        String[] columnNames = {"ID", "Course Name","Hours","Price","Start Date", "End Date"};
 
-        DefaultTableModel dtm = new DefaultTableModel(columnNames, 0){
+        MyTable dtm = new MyTable(columnNames, 0){
             @Override
             public boolean isCellEditable(int row, int column) {
                return false;
             }
         };
 
-        dtm.setColumnCount(5);
+        dtm.setColumnCount(6);
         
         
         HashSet<Course> courses = coursesController.getAllCourses();
@@ -753,6 +726,7 @@ public class Courses extends javax.swing.JFrame {
                 c.getId(),
                 c.getCourseName(),
                 c.getHours(),
+                c.getPrice(),
                 c.getStartDate(),
                 c.getEndDate()
             });
@@ -774,8 +748,9 @@ public class Courses extends javax.swing.JFrame {
                         idLabel.setText( coursesTable.getValueAt(row, 0).toString() );
                         courseNameTextField.setText( coursesTable.getValueAt(row, 1).toString() );
                         hoursTextField.setText( coursesTable.getValueAt(row, 2).toString() );
-                        ((JTextField)startDateField.getDateEditor().getUiComponent()).setText( coursesTable.getValueAt(row, 3).toString() );
-                        ((JTextField)endDateField.getDateEditor().getUiComponent()).setText( coursesTable.getValueAt(row, 4).toString() );
+                        priceTextField.setText(coursesTable.getValueAt(row, 3).toString());
+                        ((JTextField)startDateField.getDateEditor().getUiComponent()).setText( coursesTable.getValueAt(row, 4).toString() );
+                        ((JTextField)endDateField.getDateEditor().getUiComponent()).setText( coursesTable.getValueAt(row, 5).toString() );
                         Teacher teacher = coursesController.getTeacher(cid);
                         teachersComboBox.setSelectedItem(teacher);
                         saveCourseBtn.setText("Update");
@@ -839,8 +814,6 @@ public class Courses extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JButton backBtn1;
     private javax.swing.JButton backBtn2;
     private javax.swing.JButton clearBtn;
     private javax.swing.JTextField courseNameTextField;
@@ -856,6 +829,7 @@ public class Courses extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
@@ -867,11 +841,13 @@ public class Courses extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField priceTextField;
     private javax.swing.JButton saveCourseBtn;
     private com.toedter.calendar.JDateChooser startDateField;
     private javax.swing.JList<Student> studentsList;
-    private javax.swing.JComboBox<Teacher> teachersComboBox;
+    private javax.swing.JComboBox<Person> teachersComboBox;
     // End of variables declaration//GEN-END:variables
 
     

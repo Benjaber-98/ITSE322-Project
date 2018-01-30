@@ -1,0 +1,716 @@
+
+----------
+ 2018-01-27 16:19:01,564 - 
+--------Couldn't Connect To Database Error------
+
+ 
+-------------------com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:989)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:341)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2189)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2222)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2017)
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:779)
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:389)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:330)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at itse322.project.DbConnection.dbConnect(DbConnection.java:25)
+	at itse322.project.Frames.LoginPage.login(LoginPage.java:249)
+	at itse322.project.Frames.LoginPage.passwordFieldActionPerformed(LoginPage.java:296)
+	at itse322.project.Frames.LoginPage.access$200(LoginPage.java:25)
+	at itse322.project.Frames.LoginPage$3.actionPerformed(LoginPage.java:103)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1663)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6310)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:806)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1074)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:945)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:771)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:90)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:211)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:300)
+	... 58 more
+
+----------
+ 2018-01-27 16:19:17,273 - 
+--------Couldn't Connect To Database Error------
+
+ 
+-------------------com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:989)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:341)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2189)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2222)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2017)
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:779)
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:389)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:330)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at itse322.project.DbConnection.dbConnect(DbConnection.java:25)
+	at itse322.project.Frames.LoginPage.login(LoginPage.java:249)
+	at itse322.project.Frames.LoginPage.LoginBtnActionPerformed(LoginPage.java:292)
+	at itse322.project.Frames.LoginPage.access$300(LoginPage.java:25)
+	at itse322.project.Frames.LoginPage$4.actionPerformed(LoginPage.java:114)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:90)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:211)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:300)
+	... 55 more
+
+----------
+ 2018-01-27 16:19:24,623 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 16:19:57,022 - admin Added a student gfbvf fgbfg
+ 
+-------------------
+----------
+ 2018-01-27 16:20:03,185 - admin Deleted the student 1000 - gfbvf fgbfg
+ 
+-------------------
+----------
+ 2018-01-27 16:20:06,827 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 16:43:16,281 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 16:43:25,721 - admin Added Course null To Keshawn Ritchie
+ 
+-------------------
+----------
+ 2018-01-27 16:43:29,430 - admin Added Course null To Keshawn Ritchie
+ 
+-------------------
+----------
+ 2018-01-27 16:47:34,564 - Wrong Password Entered
+ 
+-------------------
+----------
+ 2018-01-27 16:47:41,258 - Wrong Password Entered
+ 
+-------------------
+----------
+ 2018-01-27 16:47:46,008 - mahmoud Logget In
+ 
+-------------------
+----------
+ 2018-01-27 16:47:58,885 - mahmoud Added Course dolorum To Keshawn Ritchie
+ 
+-------------------
+----------
+ 2018-01-27 16:48:19,253 - mahmoud Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 16:49:22,365 - mahmoud Logget In
+ 
+-------------------
+----------
+ 2018-01-27 16:49:29,891 - mahmoud Removed Course dolorum From Keshawn Ritchie
+ 
+-------------------
+----------
+ 2018-01-27 16:49:51,478 - mahmoud Removed Course qui From Keshawn Ritchie
+ 
+-------------------
+----------
+ 2018-01-27 16:50:07,069 - mahmoud Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 16:51:50,684 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 16:51:59,768 - admin Removed Course fdvd From Wendell Crooks
+ 
+-------------------
+----------
+ 2018-01-27 16:54:48,943 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 16:54:54,431 - admin Deleted the teacher 15 - Ricardo Kunde
+ 
+-------------------
+----------
+ 2018-01-27 16:55:10,206 - admin Deleted the teacher 14 - Lisa Bechtelar
+ 
+-------------------
+----------
+ 2018-01-27 16:55:23,333 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 17:23:38,500 - mahmoud Logget In
+ 
+-------------------
+----------
+ 2018-01-27 17:25:14,887 - mahmoud Added a new course "test course"
+ 
+-------------------
+----------
+ 2018-01-27 17:25:26,103 - mahmoud Updated course 148 - test course
+ 
+-------------------
+----------
+ 2018-01-27 17:25:47,073 - mahmoud Deleted course 148 - test course
+ 
+-------------------
+----------
+ 2018-01-27 17:25:56,429 - mahmoud Exported test.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 17:26:16,706 - mahmoud Updated the student 1
+ 
+-------------------
+----------
+ 2018-01-27 17:26:20,215 - mahmoud Updated the student 1
+ 
+-------------------
+----------
+ 2018-01-27 17:26:31,814 - mahmoud Added a student b vgg fdv
+ 
+-------------------
+----------
+ 2018-01-27 17:26:35,593 - mahmoud Updated the student 1001
+ 
+-------------------
+----------
+ 2018-01-27 17:26:40,380 - mahmoud Deleted the student 1001 - b vgg fdv
+ 
+-------------------
+----------
+ 2018-01-27 17:26:44,990 - mahmoud Exported Students s.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 17:27:05,549 - mahmoud Added Course aut To Adrien Quigley
+ 
+-------------------
+----------
+ 2018-01-27 17:27:13,652 - mahmoud Removed Course qui From Adrien Quigley
+ 
+-------------------
+----------
+ 2018-01-27 17:29:02,548 - mahmoud Updated the student 1
+ 
+-------------------
+----------
+ 2018-01-27 17:29:11,007 - mahmoud Deleted the teacher 10 - Norberto Ferry
+ 
+-------------------
+----------
+ 2018-01-27 17:29:40,639 - mahmoud Updated course 106 - quoq
+ 
+-------------------
+----------
+ 2018-01-27 17:30:04,960 - mahmoud Updated course 111 - dolores
+ 
+-------------------
+----------
+ 2018-01-27 17:31:53,914 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 17:32:16,706 - admin Updated course 112 - id
+ 
+-------------------
+----------
+ 2018-01-27 17:32:26,071 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 20:22:36,169 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 20:24:34,481 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 20:25:03,869 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 20:26:34,623 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 20:26:50,156 - admin Added a new course "fdvd"
+ 
+-------------------
+----------
+ 2018-01-27 20:27:10,549 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 20:29:09,838 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 20:29:28,208 - admin Added a new course "kjfjfddfkjdkjf"
+ 
+-------------------
+----------
+ 2018-01-27 20:30:05,181 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 20:40:50,232 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 20:42:40,153 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 20:43:04,924 - admin Added a new course "testtte"
+ 
+-------------------
+----------
+ 2018-01-27 20:43:17,022 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 20:45:53,409 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 20:47:12,422 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 20:47:26,960 - admin Added a student fdvd dvfv
+ 
+-------------------
+----------
+ 2018-01-27 20:47:30,868 - admin Updated the student 1002
+ 
+-------------------
+----------
+ 2018-01-27 20:47:40,731 - admin Updated the student 1002
+ 
+-------------------
+----------
+ 2018-01-27 20:47:42,622 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 22:08:40,981 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 22:09:03,165 - admin Exported reportCourses 1.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:09:57,832 - 
+--------Error Message------
+
+ 
+-------------------java.io.FileNotFoundException: Students reports\students report 1.pdf (The system cannot find the path specified)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:101)
+	at itse322.project.PDFCreator.createPDF(PDFCreator.java:37)
+	at itse322.project.Frames.students.Students.exportBtnActionPerformed(Students.java:474)
+	at itse322.project.Frames.students.Students.access$100(Students.java:49)
+	at itse322.project.Frames.students.Students$2.actionPerformed(Students.java:153)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:90)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+
+----------
+ 2018-01-27 22:10:07,100 - admin Exported studetns report 1.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:11:11,933 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 22:11:18,357 - admin Exported 1.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:11:24,931 - admin Exported 1.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:11:33,489 - 
+--------Error Message------
+
+ 
+-------------------java.io.FileNotFoundException: Teachers reports\1.pdf (The system cannot find the path specified)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:101)
+	at itse322.project.PDFCreator.createPDF(PDFCreator.java:37)
+	at itse322.project.Frames.teachers.Teachers.exportBtnActionPerformed(Teachers.java:475)
+	at itse322.project.Frames.teachers.Teachers.access$100(Teachers.java:51)
+	at itse322.project.Frames.teachers.Teachers$2.actionPerformed(Teachers.java:155)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:90)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+
+----------
+ 2018-01-27 22:11:44,157 - admin Exported 1.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:12:46,068 - admin Added a student rgerg regerg
+ 
+-------------------
+----------
+ 2018-01-27 22:12:52,009 - admin Added a student drfger drfgre
+ 
+-------------------
+----------
+ 2018-01-27 22:12:55,489 - admin Exported 1.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:16:43,815 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 22:16:50,237 - admin Exported 101-sed.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:26:56,755 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 22:27:04,665 - admin Exported 22.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:27:25,912 - admin Exported 104-fugiat.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:30:41,626 - Wrong Password Entered
+ 
+-------------------
+----------
+ 2018-01-27 22:30:43,696 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 22:30:49,432 - admin Exported 103-sapiente.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:31:16,179 - admin Exported 130-quis.pdf Report
+ 
+-------------------
+----------
+ 2018-01-27 22:31:50,628 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 23:16:14,759 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:19:02,521 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:19:38,630 - admin Added a student hello there
+ 
+-------------------
+----------
+ 2018-01-27 23:19:50,743 - admin Added Course rerum To hello there
+ 
+-------------------
+----------
+ 2018-01-27 23:20:47,434 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:22:09,878 - Wrong Password Entered
+ 
+-------------------
+----------
+ 2018-01-27 23:22:14,064 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:23:26,111 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 23:24:32,442 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:25:09,597 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:25:18,743 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 23:25:56,531 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:26:49,414 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:27:34,971 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:40:22,349 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:40:47,303 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 23:41:01,302 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:41:28,330 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:41:44,654 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:41:57,439 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 23:42:53,328 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:44:35,489 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:44:45,568 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 23:47:19,672 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:47:30,704 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 23:48:56,099 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:49:47,284 - admin Updated course 144 - molestiae
+ 
+-------------------
+----------
+ 2018-01-27 23:49:54,440 - admin Logget Out
+ 
+-------------------
+----------
+ 2018-01-27 23:50:56,537 - admin Logget In
+ 
+-------------------
+----------
+ 2018-01-27 23:51:08,992 - admin Logget Out
+ 
+-------------------

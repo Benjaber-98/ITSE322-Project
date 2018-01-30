@@ -41,6 +41,7 @@ public class CoursesController {
                 course.setId(rs.getInt("cid"));
                 course.setCourseName(rs.getString("course_name"));
                 course.setHours(rs.getInt("hours"));
+                course.setPrice(rs.getInt("price"));
                 course.setStartDate(rs.getDate("start_date").toString());
                 course.setEndDate(rs.getDate("end_date").toString());
                 courses.add(course);
@@ -71,14 +72,15 @@ public class CoursesController {
         PreparedStatement s = null;
         try {
             c = DbConnection.dbConnect();
-            String query = "Update Courses SET course_name = ?, hours = ?, start_date = CAST(? AS DATE), end_date = CAST(? AS DATE)"
+            String query = "Update Courses SET course_name = ?, hours = ?, price = ?, start_date = CAST(? AS DATE), end_date = CAST(? AS DATE)"
                     + " WHERE cid = ?";
             s = c.prepareStatement(query);
             s.setString(1, course.getCourseName());
             s.setInt(2, course.getHours());
-            s.setString(3, course.getStartDate());
-            s.setString(4, course.getEndDate());
-            s.setInt(5, course.getId());
+            s.setInt(3, course.getPrice());
+            s.setString(4, course.getStartDate());
+            s.setString(5, course.getEndDate());
+            s.setInt(6, course.getId());
             
             s.executeUpdate();
             
@@ -234,13 +236,14 @@ public class CoursesController {
         ResultSet rs = null;
         try {
             c = DbConnection.dbConnect();
-            String query = "INSERT INTO Courses(course_name, hours, start_date, end_date) "
-                    + "VALUES (?,?,CAST(? AS DATE),CAST(? AS DATE) );";
+            String query = "INSERT INTO Courses(course_name, hours, price, start_date, end_date) "
+                    + "VALUES (?,?,?,CAST(? AS DATE),CAST(? AS DATE) );";
             s = c.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             s.setString(1, course.getCourseName());
             s.setInt(2, course.getHours());
-            s.setString(3, course.getStartDate());
-            s.setString(4, course.getEndDate());
+            s.setInt(3, course.getPrice());
+            s.setString(4, course.getStartDate());
+            s.setString(5, course.getEndDate());
             s.executeUpdate();
             if(course.getTeacher() != null) {
                 rs = s.getGeneratedKeys();

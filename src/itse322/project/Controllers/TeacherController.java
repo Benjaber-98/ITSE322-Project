@@ -8,7 +8,6 @@ package itse322.project.Controllers;
 import itse322.project.DbConnection;
 import itse322.project.Message;
 import itse322.project.Models.Course;
-import itse322.project.Models.Student;
 import itse322.project.Models.Teacher;
 import java.sql.*;
 import java.util.HashSet;
@@ -130,6 +129,7 @@ public class TeacherController {
                 course.setStartDate(rs.getDate("c.start_date").toString());
                 course.setEndDate(rs.getDate("c.end_date").toString());
                 course.setHours(rs.getInt("c.hours"));
+                course.setPrice(rs.getInt("c.price"));
                 teacher.addCourse(course);
             }
         } catch(SQLException ex) {

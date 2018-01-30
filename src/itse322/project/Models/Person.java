@@ -112,5 +112,9 @@ public class Person {
         this.Gender = Gender;
     }
     
+    public String toString(){
+        return this.firstName + " " + this.lastName;
+    }
+    
     
 }

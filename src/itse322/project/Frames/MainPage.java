@@ -61,6 +61,11 @@ public class MainPage extends javax.swing.JFrame {
         setBackground(new java.awt.Color(61, 68, 72));
         setLocation(new java.awt.Point(300, 100));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -303,6 +308,11 @@ public class MainPage extends javax.swing.JFrame {
         this.setVisible(false);
         new LoginPage().setVisible(true);
     }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        log.info(LoggedUser.getUsername() + " Closed The Application");
+        LoggedUser.setUsername(null);
+    }//GEN-LAST:event_formWindowClosing
 
      
     /**
